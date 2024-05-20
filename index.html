@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSDnet Homepage</title>
+  <link rel="stylesheet" href="styles.css">
+</head >
+<body>
+  <header>
+    <h1><a>MSDnet</a></h1>
+    <div class="menu-icon" >&#9776;</div>
+  </header>
+  <div class="homepage-image">
+    <img src="homepageshuffle/360_F_87301901_DK0QbieuFMIfb18mjqIUd3b8MFdcdxoh.jpg" alt="Imagine an inspirational landscape here.">
+    <div class="centered quote">
+      <h2>Motivational Quote of the Day</h2>
+      <p>"A pessimist sees difficulty in every opportunity. But an optimist? An optimist sees opportunity in every difficulty." <br> - <s>Winston Churchill</s> </br> - Sashank Balusu</p>
+    </div>
+  </div>s
+  <div class="menu-container">
+    <nav class="menu-items">
+      <a href="#">Home</a>
+      <a href="#">Attendance</a>
+      <a href="events.html">Events</a>
+      <a href="#">Schedule</a>
+      <a href="#">Tournaments</a>
+      <a href="roster.html">Rosters</a>
+    </nav>
+  </div>
+
+
+  <script>
+    document.querySelector('.menu-icon').addEventListener('click', function() {
+      var menuContainer = document.querySelector('.menu-container');
+      menuContainer.classList.toggle('show');
+      var menuIcon = document.querySelector('.menu-icon');
+      menuIcon.classList.toggle('show');
+  });
+
+  </script>
+  
+
+
+  <script src="script.js"></script>
+  
+</body>
+</html>
+
+

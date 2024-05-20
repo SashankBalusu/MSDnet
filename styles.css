@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    font-family: 'Courier New', Tahoma, sans-serif;
+    overflow-x: hidden;
+    background-color: #333;
+
+  }
+  header {
+    cursor: pointer;
+    background-color: #2A2B2E;
+    color: #F5BC51;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .menu-container {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Initially hidden */
+    bottom: 0;
+    background-color: #2A2B2E;
+    border: 100px;
+    color: #F5BC51;
+    padding: 10px;
+    width: 300px;
+    transition: right 0.3s; /* Smooth transition */
+  }
+  .menu-icon {
+    cursor: pointer;
+    flood-color: #85FFE2;
+    font-size: 48px;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    transition: right 0.3s; /* Smooth transition */
+  }
+  .menu-container.show {
+    right: 0; /* Slide out when 'show' class is added */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .menu-icon.show {
+    right: 330px; /* Slide out with the menu items */
+  }
+  .menu-item {
+    padding: 10px;
+    border-bottom: 1px solid #F5BC51;
+    font-size: 24px;
+  }
+  .centered {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  nav a {
+    display: block;
+    color: #F5BC51;
+    text-decoration: none;
+    padding: 25px 0;
+    font-size: 30px
+  }
+  nav a:hover {
+    color: #85FFE2;
+  }
+  .homepage-image {
+    position: relative;
+    text-align: center;
+    color: black;
+    font-family: cursive;
+    font-size: larger;
+    font-weight: 700;
+  }
+  .homepage-image img {
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .quote {
+    margin-top: 0px;
+    font-size: 24px;
+    top: 40%;
+    left: 50%;
+  }
+  .author {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+  }
+  .footer {
+    background-color: #2A2B2E;
+    color: #F5BC51;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    align-self: center;
+  }
+
+  /* Responsive design */
+  @media screen and (max-width: 768px) {
+    .menu-container {
+      width: 100%;
+    }
+    .menu-icon {
+      font-size: 36px;
+    }
+    nav a {
+      font-size: 24px;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    .menu-icon {
+      font-size: 24px;
+    }
+    nav a {
+      font-size: 18px;
+    }
+  }
+  @media screen and (max-width: 320px) {
+    .menu-icon {
+      font-size: 18px;
+    }
+    nav a {
+      font-size: 14px;
+    }
+  }
+
+
+
+
+  

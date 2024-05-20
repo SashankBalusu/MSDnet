@@ -1,0 +1,42 @@
+<!-- FILEPATH: /Users/aneesh/Desktop/MSD Stuff/MSDnet/roster.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Google Sheets Data Import</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1><a>MSDnet</a></h1>
+        <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <div>
+        <table class="centered" id="grid" >Roster</table>
+    </div>
+
+    <div class="menu-container">
+        <nav class="menu-items">
+            <a href="index.html">Home</a>
+            <a href="#">Attendance</a>
+            <a href="#">Schedule</a>
+            <a href="#">Tournaments</a>
+            <a href="roster.html">Rosters</a>
+        </nav>
+    </div>
+
+    <script>
+        document.querySelector('.menu-icon').addEventListener('click', function() {
+      var menuContainer = document.querySelector('.menu-container');
+      menuContainer.classList.toggle('show');
+      var menuIcon = document.querySelector('.menu-icon');
+      menuIcon.classList.toggle('show');
+  });
+    </script>
+
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+</body>
+</html>
