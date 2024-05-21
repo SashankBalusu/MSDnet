@@ -1,12 +1,13 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Event Manager</title>
-    <link rel="stylesheet" href="styles.css">
+  <title>MSD Events</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <!-- Include Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
 </head>
 <body>
     <header>
@@ -14,15 +15,6 @@
         <div class="menu-icon">&#9776;</div>
     </header>
 
-    <div class="menu-container">
-        <nav class="menu-items">
-            <a href="index.html">Home</a>
-            <a href="#">Attendance</a>
-            <a href="#">Schedule</a>
-            <a href="#">Tournaments</a>
-            <a href="roster.html">Rosters</a>
-        </nav>
-    </div>
     <h1>Event Manager</h1>
     <div>
         <form id="eventForm">
@@ -47,8 +39,16 @@
             <button type="submit">Create Event</button>
         </form>
     </div>
-  
+    <div class="menu-container">
+      <nav class="menu-items">
+          <a href="index.html">Home</a>
+          <a href="#">Attendance</a>
+          <a href="#">Schedule</a>
+          <a href="#">Tournaments</a>
+          <a href="roster.html">Rosters</a>
+      </nav>
+  </div>
 
-  <script src="events.js"></script>
+  <script src="script.js" type="module"></script>
 </body>
 </html>
