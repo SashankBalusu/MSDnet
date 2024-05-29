@@ -1,139 +1,350 @@
 body {
-    margin: 0;
-    font-family: 'Courier New', Tahoma, sans-serif;
-    overflow-x: hidden;
-    background-color: #333;
+  margin: 0;
+  font-family: 'Courier New', Tahoma, sans-serif;
+  overflow-x: hidden;
+  background-color: #333;
+}
 
-  }
-  header {
-    cursor: pointer;
-    background-color: #2A2B2E;
-    color: #F5BC51;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+header {
+  cursor: pointer;
+  background-color: #2A2B2E;
+  color: #F5BC51;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+nav.menu-bar {
+  display: flex;
+  margin-left: 300px;
+  margin-right: 50px;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+}
+
+nav.menu-bar a {
+  align-items: baseline;
+  text-decoration: none;
+  padding: 5px 20px;
+  transition: background-color 0.3s ease;
+  font-size: 20px;
+  color: #F5BC51;
+}
+
+nav.menu-bar a:hover {
+  background-color: #F5BC51;
+  color: #2A2B2E;
+}
+
+.menu-container {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  bottom: 0;
+  background-color: #2A2B2E;
+  border: 100px;
+  color: #F5BC51;
+  padding: 10px;
+  width: 300px;
+  transition: right 0.3s;
+}
+
+.search-icon {
+  cursor: pointer;
+  flood-color: #85FFE2;
+  font-size: 36px;
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  margin: 10px 10px;
+  transition: right 0.3s;
+}
+
+.menu-icon {
+  cursor: pointer;
+  flood-color: #85FFE2;
+  font-size: 48px;
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  transition: right 0.3s;
+}
+
+.menu-container.show {
+  right: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.menu-icon.show {
+  right: 330px;
+}
+
+.menu-items {
+  padding: 10px;
+  border-bottom: 1px solid #F5BC51;
+  font-size: 24px;
+}
+
+.centered {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+nav.menu-items a {
+  display: block;
+  color: #F5BC51;
+  text-decoration: none;
+  padding: 25px 0;
+  font-size: 30px;
+}
+
+nav a:hover {
+  color: #85FFE2;
+}
+
+.homepage-image {
+  position: relative;
+  text-align: center;
+  color: black;
+  font-family: cursive;
+  font-size: larger;
+  font-weight: 700;
+}
+
+.homepage-image img {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.quote {
+  margin-top: 0px;
+  font-size: 24px;
+  top: 40%;
+  left: 50%;
+}
+
+.author {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+}
+
+.footer {
+  background-color: #2A2B2E;
+  color: #F5BC51;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  align-self: center;
+}
+h1 {
+  color: #F5BC51;
+  font-size: 36px;
+  margin: 10px;
+  text-align: center;
+}
+/* Form Styling */
+.event-creation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 20px;
+  border-bottom: 1px solid #F5BC51;
+  length: 50%;
+}
+
+.event-creation h2 {
+  color: #F5BC51;
+  font-size: 36px;
+  margin: 10px;
+}
+
+.event-creation form {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  margin: 20px;
+  border: 1px solid #F5BC51;
+  width: 50%;
+}
+.event-creation #firsthalfform {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+.event-creation #secondhalfform {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+  justify-content: left;
+  margin: 0px;
+  width: 100%;
+}
+.event-creation span {
+  width: 75%;
+  padding: 1px 2px 1px 5px;
+  margin: 5px;
+  border: 1px solid #F5BC51;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  justify-content: left;
+
+}
+.event-creation input[type="checkbox"] {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #F5BC51;
+  border-radius: 5px;
+  color-scheme: dark;
+}
+.event-creation div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+}
+
+.event-creation div div {
+  align-items: baseline;
+  width: 50%;
+  align-self: baseline;
+  vertical-align: top;
+}
+
+.event-creation label {
+  color: #F5BC51;
+  font-size: 24px;
+  margin: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.event-creation label input[type="checkbox"] {
+  margin-right: 10px;
+  vertical-align: middle;
+  align-items: baseline;
+  justify-content: left;
+}
+
+.event-creation input:not([type="checkbox"]) {
+  width: 25%;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #F5BC51;
+  border-radius: 5px;
+  color-scheme: dark;
+}
+.event-creation #eventDescriptionLabel {
+  align-self: center;
+}
+.event-creation textarea#eventDescription {
+  width: 75%;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #F5BC51;
+  border-radius: 5px;
+  color-scheme: dark;
+  length: fit-content;
+  align-self: center;
+}
+.event-creation button {
+  align-self: center;
+  width: 50%;
+  padding: 10px;
+  margin: 40px;
+  border: 1px solid #F5BC51;
+  border-radius: 5px;
+  background-color: #F5BC51;
+  color: #2A2B2E;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
   .menu-container {
-    position: fixed;
-    top: 0;
-    right: -400px; /* Initially hidden */
-    bottom: 0;
-    background-color: #2A2B2E;
-    border: 100px;
-    color: #F5BC51;
-    padding: 10px;
-    width: 300px;
-    transition: right 0.3s; /* Smooth transition */
+    width: 100%;
   }
+
   .menu-icon {
-    cursor: pointer;
-    flood-color: #85FFE2;
-    font-size: 48px;
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    transition: right 0.3s; /* Smooth transition */
+    font-size: 36px;
   }
-  .menu-container.show {
-    right: 0; /* Slide out when 'show' class is added */
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
-  .menu-icon.show {
-    right: 330px; /* Slide out with the menu items */
-  }
-  .menu-item {
-    padding: 10px;
-    border-bottom: 1px solid #F5BC51;
-    font-size: 24px;
-  }
-  .centered {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+
   nav a {
-    display: block;
-    color: #F5BC51;
-    text-decoration: none;
-    padding: 25px 0;
-    font-size: 30px
-  }
-  nav a:hover {
-    color: #85FFE2;
-  }
-  .homepage-image {
-    position: relative;
-    text-align: center;
-    color: black;
-    font-family: cursive;
-    font-size: larger;
-    font-weight: 700;
-  }
-  .homepage-image img {
-    height: 400px;
-    width: 100%;
-    object-fit: cover;
-  }
-  .quote {
-    margin-top: 0px;
     font-size: 24px;
-    top: 40%;
-    left: 50%;
   }
-  .author {
-    font-family: Arial, sans-serif;
-    font-size: 20px;
+
+  .homepage-image img {
+    height: 300px;
   }
-  .footer {
-    background-color: #2A2B2E;
-    color: #F5BC51;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
+
   .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
-    align-self: center;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .menu-icon {
+    font-size: 24px;
   }
 
-  /* Responsive design */
-  @media screen and (max-width: 768px) {
-    .menu-container {
-      width: 100%;
-    }
-    .menu-icon {
-      font-size: 36px;
-    }
-    nav a {
-      font-size: 24px;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .menu-icon {
-      font-size: 24px;
-    }
-    nav a {
-      font-size: 18px;
-    }
-  }
-  @media screen and (max-width: 320px) {
-    .menu-icon {
-      font-size: 18px;
-    }
-    nav a {
-      font-size: 14px;
-    }
+  nav a {
+    font-size: 18px;
   }
 
+  .homepage-image img {
+    height: 200px;
+  }
 
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 5px;
+    padding: 5px;
+  }
+}
 
+@media screen and (max-width: 320px) {
+  .menu-icon {
+    font-size: 18px;
+  }
 
-  
+  nav a {
+    font-size: 14px;
+  }
+
+  .homepage-image img {
+    height: 150px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 2px;
+    padding: 2px;
+  }
+}
