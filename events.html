@@ -4,10 +4,11 @@
   <title>MSD Events</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
   <!-- Include Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -21,17 +22,30 @@
             <label for="eventName">Event Name:</label>
             <input type="text" id="eventName" required>
 
-            <label for="eventDate">Event Date:</label>
-            <input type="date" id="eventDate" required>
+            <div class="dateTimeSelectors" id="dateTimeSelectors">
+              <div id="dateTimeInputContainer-0">
+                <label for="eventDate-0">Event Date:</label>
+                <input type="date" id="eventDate-0" required>
 
-            <label for="eventTime">Event Time:</label>
-            <input type="time" id="eventTime" required>
+                <label for="eventTimeStart-0">Event Time Start:</label>
+                <input type="time" id="eventTimeStart-0" required>
+
+                <label for="eventTimeEnd-0">Event Time:</label>
+                <input type="time" id="eventTimeEnd-0" required>
+              </div>
+            </div>
+            <button id="addDate" onclick="addDateSelector()">+</button>
 
             <label for="eventLocation">Event Location:</label>
             <input type="text" id="eventLocation" required>
 
             <label for="eventType">Event Type:</label>
-            <textarea id="eventType" required></textarea>
+            <select name="eventType" id="eventType">
+              <option hidden selected>Select</option>
+              <option value="Blitz">Blitz</option>
+              <option value="Cultural">Cultural</option>
+              <option value="Tournament">Tournament</option>
+            </select>
 
             <label for="eventDescription">Event Description:</label>
             <textarea id="eventDescription"></textarea>
@@ -39,16 +53,9 @@
             <button type="submit">Create Event</button>
         </form>
     </div>
-    <div class="menu-container">
-      <nav class="menu-items">
-          <a href="index.html">Home</a>
-          <a href="#">Attendance</a>
-          <a href="#">Schedule</a>
-          <a href="#">Tournaments</a>
-          <a href="roster.html">Rosters</a>
-      </nav>
-  </div>
 
-  <script src="events.js" type="module"></script>
+    <script src="event_handling.js"></script>
+    <script src="form_submit.js" type="module"></script>
 </body>
 </html>
+
