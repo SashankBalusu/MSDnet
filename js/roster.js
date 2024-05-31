@@ -133,7 +133,11 @@ window.onload = function() {
           // });
         }
         if (error == false){
-          update(ref(db), updates)
+          update(ref(db), updates).then(() => {
+            submitRoster.setAttribute("style", "display: block;")
+            textarea.value = ""
+            confirmRoster.setAttribute("style", "display: none;")
+          })
 
         }
       })
