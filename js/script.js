@@ -80,7 +80,13 @@ login.addEventListener("click", function(){
           }
           else {
             console.log("success!")
-           
+            if (access = "coaches"){
+                auth.onAuthStateChanged(function(user) {
+                    if (user) {
+                     window.location = 'coachhome.html';
+                    }
+                  })
+            }
           }
         } else {
           console.log("No data available");

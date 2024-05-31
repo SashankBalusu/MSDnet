@@ -29,6 +29,18 @@
             <a href="roster.html">Rosters</a>
         </nav>
     </div>
+    <div>
+        <div id = "submitRoster">
+            <textarea id = "rosterInfo"></textarea>
+            <button id = "submit">Submit</button>
+        </div>
+        
+        <div id = "confirmRoster">
+            <button id = "submitConfirmRoster">Submit</button>
+
+        </div>
+    </div>
+    
 
     <script>
         document.querySelector('.menu-icon').addEventListener('click', function() {
@@ -38,7 +50,7 @@
       menuIcon.classList.toggle('show');
   });
     </script>
-
+    <script src = "js/roster.js" type = "module"></script>
     <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 </body>
 </html>
