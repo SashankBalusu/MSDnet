@@ -81,11 +81,11 @@ login.addEventListener("click", function(){
           else {
             console.log("success!")
             if (access = "coaches"){
-                auth.onAuthStateChanged(function(user) {
-                    if (user) {
-                     window.location = 'coachhome.html';
-                    }
-                  })
+                window.location = 'coachhome.html';
+
+            }
+            if (access == "Member" || access == "Captain" || access == "President"){
+                window.location = "studenthome.html"
             }
           }
         } else {
