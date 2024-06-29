@@ -80,11 +80,13 @@ login.addEventListener("click", function(){
           }
           else {
             console.log("success!")
-            if (access = "coaches"){
+            console.log(access)
+            if (access == "coaches"){
+                
                 window.location = 'coachhtml/coachhome.html';
 
             }
-            if (access == "Member" || access == "Captain" || access == "President"){
+            else if (access == "Member" || access == "Captain" || access == "President"){
                 window.location = "studenthtml/studenthome.html"
             }
           }
