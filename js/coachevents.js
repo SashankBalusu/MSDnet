@@ -1,69 +1,132 @@
+// coachevents.js
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 // Initialize Firebase (add your config here)
 const firebaseConfig = {
-    apiKey: "AIzaSyBY3NSt8IsWNcEntJiO8QM_Z26Nv4WdrWM",
-    authDomain: "msdnet-7307d.firebaseapp.com",
-    projectId: "msdnet-7307d",
-    storageBucket: "msdnet-7307d.appspot.com",
-    messagingSenderId: "55003346420",
-    appId: "1:55003346420:web:7f3693c50fe0ca598df5a1",
-    measurementId: "G-GGHX0BXHLD",
-  };
-  
+  apiKey: "AIzaSyBY3NSt8IsWNcEntJiO8QM_Z26Nv4WdrWM",
+  authDomain: "msdnet-7307d.firebaseapp.com",
+  projectId: "msdnet-7307d",
+  storageBucket: "msdnet-7307d.appspot.com",
+  messagingSenderId: "55003346420",
+  appId: "1:55003346420:web:7f3693c50fe0ca598df5a1",
+  measurementId: "G-GGHX0BXHLD",
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
-const tournamentsRef = ref(db, 'tournaments');
-const tournamentList = document.getElementById('tournamentList');
+document.addEventListener('DOMContentLoaded', () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      fetchEventsAndTournaments();
+    } else {
+      console.log("User not logged in");
+    }
+  });
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    fetchTournaments();
-  } else {
-    tournamentList.innerHTML = '<p>Please sign in to view tournaments.</p>';
-  }
+  // Add event listeners for create buttons
+  document.getElementById('createEventBtn').addEventListener('click', () => {
+    window.location.href = 'eventcreation.html';
+  });
+
+  document.getElementById('createTournamentBtn').addEventListener('click', () => {
+    window.location.href = 'tournamentcreation.html';
+  });
 });
 
-function fetchTournaments() {
-  onValue(tournamentsRef, (snapshot) => {
-    const data = snapshot.val();
-    displayTournaments(data);
-  }, {
-    onlyOnce: true
+function fetchEventsAndTournaments() {
+  const eventsRef = ref(db, 'events');
+  const tournamentsRef = ref(db, 'tournaments');
+
+  Promise.all([
+    new Promise(resolve => onValue(eventsRef, resolve, { onlyOnce: true })),
+    new Promise(resolve => onValue(tournamentsRef, resolve, { onlyOnce: true }))
+  ]).then(([eventsSnapshot, tournamentsSnapshot]) => {
+    const events = eventsSnapshot.val() || {};
+    const tournaments = tournamentsSnapshot.val() || {};
+
+    displayEvents(events);
+    displayTournaments(tournaments);
   });
 }
 
-function displayTournaments(tournaments) {
-  tournamentList.innerHTML = '';
-  for (let tournamentName in tournaments) {
-    const tournament = tournaments[tournamentName];
-    const tournamentElement = createTournamentElement(tournamentName, tournament);
-    tournamentList.appendChild(tournamentElement);
+function displayEvents(events) {
+  const eventRow = document.getElementById('eventRow');
+  eventRow.innerHTML = '';
+  
+  for (const [id, event] of Object.entries(events)) {
+    const eventElement = createEventElement(id, event);
+    eventRow.appendChild(eventElement);
   }
 }
 
-function createTournamentElement(tournamentName, tournament) {
+function displayTournaments(tournaments) {
+  const tournamentRow = document.getElementById('tournamentRow');
+  tournamentRow.innerHTML = '';
+  
+  for (const [id, tournament] of Object.entries(tournaments)) {
+    const tournamentElement = createTournamentElement(id, tournament);
+    tournamentRow.appendChild(tournamentElement);
+  }
+}
+
+function createEventElement(id, event) {
+  const div = document.createElement('div');
+  div.className = 'event';
+  
+  const dateHtml = getDateString(event.dateData);
+
+  div.innerHTML = `
+    <h3>${event.name}</h3>
+    ${dateHtml}
+    <p><strong>Location:</strong> ${event.location || 'Not specified'}</p>
+    <p><strong>Type:</strong> ${event.type || 'Not specified'}</p>
+    <div class="description-container">
+      <p class="description"><strong>Description:</strong> ${event.description || 'No description provided'}</p>
+      <button class="show-more-btn">Show More</button>
+    </div>
+  `;
+
+  const descriptionContainer = div.querySelector('.description-container');
+  const description = div.querySelector('.description');
+  const showMoreBtn = div.querySelector('.show-more-btn');
+
+  showMoreBtn.addEventListener('click', () => {
+    if (div.classList.contains('description-expanded')) {
+      div.classList.remove('description-expanded');
+      description.style.whiteSpace = 'nowrap';
+      showMoreBtn.textContent = 'Show More';
+    } else {
+      div.classList.add('description-expanded');
+      description.style.whiteSpace = 'normal';
+      showMoreBtn.textContent = 'Show Less';
+    }
+  });
+
+  return div;
+}
+
+function createTournamentElement(id, tournament) {
   const div = document.createElement('div');
   div.className = 'tournament';
   
-  const dateString = tournament.timeData && tournament.timeData.length > 0 
-    ? `${tournament.timeData[0].date} ${tournament.timeData[0].timeStart} - ${tournament.timeData[0].timeEnd}`
-    : 'Date not specified';
-
-  const interestedStudentsCount = tournament.interestedStudents ? Object.keys(tournament.interestedStudents).length : 0;
+  const dateHtml = getDateString(tournament.dateData);
 
   div.innerHTML = `
-    <h2>${tournamentName}</h2>
-    <p>Date: ${dateString}</p>
-    <p>Location: ${tournament.location || 'Not specified'}</p>
-    <p>Type: ${tournament.type || 'Not specified'}</p>
+    <h3>${tournament.name}</h3>
+    ${dateHtml}
+    <p><strong>Location:</strong> ${tournament.location || 'Not specified'}</p>
+    <p><strong>Type:</strong> ${tournament.type || 'Not specified'}</p>
+    <div class="description-container">
+      <p class="description"><strong>Description:</strong> ${tournament.description || 'No description provided'}</p>
+      <button class="show-more-btn">Show More</button>
+    </div>
     <div class="interested-students">
-      <h3>Interested Students <span class="student-count">(${interestedStudentsCount})</span> <span class="dropdown-arrow">▼</span></h3>
+      <h4>Interested Students <span class="student-count">(${Object.keys(tournament.interestedStudents || {}).length})</span> <span class="dropdown-arrow">▼</span></h4>
       <ul class="student-list" style="display: none;">
         ${tournament.interestedStudents ? 
           Object.values(tournament.interestedStudents)
@@ -75,13 +138,52 @@ function createTournamentElement(tournamentName, tournament) {
     </div>
   `;
 
+  const descriptionContainer = div.querySelector('.description-container');
+  const description = div.querySelector('.description');
+  const showMoreBtn = div.querySelector('.show-more-btn');
   const dropdownArrow = div.querySelector('.dropdown-arrow');
   const studentList = div.querySelector('.student-list');
-  
-  dropdownArrow.addEventListener('click', () => {
-    studentList.style.display = studentList.style.display === 'none' ? 'block' : 'none';
-    dropdownArrow.textContent = studentList.style.display === 'none' ? '▼' : '▲';
+
+  showMoreBtn.addEventListener('click', () => {
+    if (div.classList.contains('description-expanded')) {
+      div.classList.remove('description-expanded');
+      description.style.whiteSpace = 'nowrap';
+      showMoreBtn.textContent = 'Show More';
+    } else {
+      div.classList.add('description-expanded');
+      description.style.whiteSpace = 'normal';
+      showMoreBtn.textContent = 'Show Less';
+    }
+  });
+
+  dropdownArrow.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (studentList.style.display === 'none') {
+      studentList.style.display = 'block';
+      dropdownArrow.textContent = '▲';
+      div.classList.add('student-list-expanded');
+    } else {
+      studentList.style.display = 'none';
+      dropdownArrow.textContent = '▼';
+      div.classList.remove('student-list-expanded');
+    }
   });
 
   return div;
+}
+
+function getDateString(dateData) {
+  if (dateData && Object.keys(dateData).length > 0) {
+    return Object.values(dateData)
+      .map(day => `<p>${formatDate(day.date)}</p>`)
+      .join('');
+  } else {
+    return '<p>Date not specified</p>';
+  }
+}
+
+function formatDate(dateString) {
+  if (!dateString) return 'Not specified';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
 }

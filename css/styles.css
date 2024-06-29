@@ -110,33 +110,6 @@ nav a:hover {
   color: #85FFE2;
 }
 
-.homepage-image {
-  position: relative;
-  text-align: center;
-  color: black;
-  font-family: cursive;
-  font-size: larger;
-  font-weight: 700;
-}
-
-.homepage-image img {
-  height: 400px;
-  width: 100%;
-  object-fit: cover;
-}
-
-.quote {
-  margin-top: 0px;
-  font-size: 24px;
-  top: 40%;
-  left: 50%;
-}
-
-.author {
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-}
-
 .footer {
   background-color: #2A2B2E;
   color: #F5BC51;
@@ -147,155 +120,228 @@ nav a:hover {
   width: 100%;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+.events-container {
   padding: 20px;
-  align-self: center;
 }
 
-h1 {
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.events-titles h1 {
+  margin: 0;
   color: #F5BC51;
-  font-size: 36px;
-  margin: 10px;
-  text-align: center;
 }
 
-/* Form Styling */
-.event-creation {
+.create-buttons {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 20px;
-  border-bottom: 1px solid #F5BC51;
-  length: 50%;
+  gap: 10px;
 }
 
-.event-creation h2 {
-  color: #F5BC51;
-  font-size: 36px;
-  margin: 10px;
-}
-
-.event-creation form {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: left;
-  margin: 20px;
-  border: 1px solid #F5BC51;
-  width: 50%;
-}
-
-.event-creation #firsthalfform {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-}
-
-.event-creation #secondhalfform {
-  display: flex;
-  flex-direction: row;
-  align-items: left;
-  justify-content: left;
-  margin: 0px;
-  width: 100%;
-}
-
-.event-creation span {
-  width: 75%;
-  padding: 1px 2px 1px 5px;
-  margin: 5px;
-  border: 1px solid #F5BC51;
-  border-radius: 5px;
-  display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  justify-content: left;
-}
-
-.event-creation input[type="checkbox"] {
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #F5BC51;
-  border-radius: 5px;
-  color-scheme: dark;
-}
-
-.event-creation div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 10px;
-}
-
-.event-creation div div {
-  align-items: baseline;
-  width: 50%;
-  align-self: baseline;
-  vertical-align: top;
-}
-
-.event-creation label {
-  color: #F5BC51;
-  font-size: 24px;
-  margin: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: left;
-}
-
-.event-creation label input[type="checkbox"] {
-  margin-right: 10px;
-  vertical-align: middle;
-  align-items: baseline;
-  justify-content: left;
-}
-
-.event-creation input:not([type="checkbox"]) {
-  width: 25%;
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #F5BC51;
-  border-radius: 5px;
-  color-scheme: dark;
-}
-
-.event-creation #eventDescriptionLabel {
-  align-self: center;
-}
-
-.event-creation textarea#eventDescription {
-  width: 75%;
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #F5BC51;
-  border-radius: 5px;
-  color-scheme: dark;
-  length: fit-content;
-  align-self: center;
-}
-
-.event-creation button {
-  align-self: center;
-  width: 50%;
-  padding: 10px;
-  margin: 40px;
-  border: 1px solid #F5BC51;
-  border-radius: 5px;
+.create-buttons button {
   background-color: #F5BC51;
   color: #2A2B2E;
-  font-size: 24px;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.create-buttons button:hover {
+  background-color: #85FFE2;
+}
+
+.scrollable-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.tournament, .event {
+  min-width: 269px;
+  max-width: none; /* Remove max-width constraint */
+  background-color: #2A2B2E;
+  border: 1px solid #F5BC51;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.tournament {
+  height: 185px;
+}
+
+.event {
+  height: 165px;
+}
+
+.tournament h3, .event h3 {
+  color: #F5BC51;
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 20px;
+  white-space: pre-line; /* Allow title to wrap */
+  overflow: scroll;
+}
+
+.tournament p, .event p {
+  color: #F5BC51;
+  margin: 5px 0;
+}
+
+.description-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: auto;
+}
+
+.description {
+  flex-grow: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-right: 15px;
+  padding-right: 5px;
+  width: calc(100% - 98px);
+}
+
+.show-more-btn {
+  background-color: #F5BC51;
+  color: #2A2B2E;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  align-self: flex-end;
+  margin-top: 5px;
+  height: 27px;
+  width: 93px;
+}
+
+.show-more-btn:hover {
+  background-color: #85FFE2;
+}
+
+.tournament.description-expanded, .event.description-expanded {
+  height: auto;
+  max-height: 400px;
+}
+
+.tournament.student-list-expanded {
+  height: auto;
+  max-height: 560px;
+}
+
+.description-expanded .description {
+  white-space: normal;
+}
+
+.interested-students h4 {
+  color: #F5BC51;
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 5px;
   cursor: pointer;
 }
 
-/* Tournament Form Styling */
-#tournamentForm {
+.student-count {
+  color: #F5BC51;
+  font-size: 16px;
+}
+
+.dropdown-arrow {
+  color: #F5BC51;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.student-list {
+  list-style-type: none;
+  padding-left: 20px;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  color: #F5BC51;
+}
+
+.student-list li {
+  color: #F5BC51;
+}
+
+.tournament.expanded, .event.expanded {
+  height: auto;
+  max-height: 560px;
+}
+
+.expanded .description {
+  white-space: normal;
+}
+
+/* Styles for Events and Tournaments titles */
+.events-container h3 {
+  color: #F5BC51;
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+/* Styles for tournament and event cards */
+.tournament h3, .event h3 {
+  color: #F5BC51;
+  font-size: 20px;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Styles for Interested Students title */
+/* Update these styles in your CSS file */
+
+.interested-students h4 {
+  color: #F5BC51;
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.student-count {
+  color: #F5BC51;
+  font-size: 16px;
+}
+
+.dropdown-arrow {
+  color: #F5BC51;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.student-list {
+  list-style-type: none;
+  padding-left: 20px;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  color: #F5BC51;
+}
+
+.student-list li {
+  color: #F5BC51;
+}
+
+/* Form Styling */
+.event-creation, #tournamentForm {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
@@ -305,16 +351,22 @@ h1 {
   color: #F5BC51;
 }
 
-#tournamentForm label {
+.event-creation h2, #tournamentForm h2 {
+  color: #F5BC51;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.event-creation label, #tournamentForm label {
   display: block;
   margin-top: 10px;
-  font-weight: bold;
   color: #F5BC51;
 }
 
+.event-creation input:not([type="checkbox"]),
+.event-creation textarea,
 #tournamentForm input[type="text"],
 #tournamentForm input[type="date"],
-#tournamentForm input[type="time"],
 #tournamentForm select,
 #tournamentForm textarea {
   width: 100%;
@@ -322,159 +374,22 @@ h1 {
   margin-top: 5px;
   border: 1px solid #F5BC51;
   border-radius: 4px;
-  box-sizing: border-box;
   background-color: #333;
   color: #F5BC51;
 }
 
-#tournamentForm button {
+.event-creation button, #tournamentForm button {
   background-color: #F5BC51;
   color: #2A2B2E;
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-top: 10px;
-  font-size: 18px;
-}
-
-#tournamentForm button:hover {
-  background-color: #85FFE2;
-}
-
-/* Dropdown Styling */
-.dropdown {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  margin-top: 10px;
-}
-
-.dropdown button {
-  width: 100%;
-  padding: 10px;
-  background-color: #333;
-  border: 1px solid #F5BC51;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: left;
-  color: #F5BC51;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #2A2B2E;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  max-height: 200px;
-  overflow-y: auto;
-  width: 100%;
-}
-
-.dropdown-content label {
-  color: #F5BC51;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-content label:hover {
-  background-color: #333;
-}
-
-.show {
-  display: block;
-}
-
-/* Date-Time Selectors Styling */
-.dateTimeSelectors {
-  margin-bottom: 15px;
-}
-
-#dateTimeInputContainer-0 {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-#dateTimeInputContainer-0 label {
-  flex-basis: 100%;
-}
-
-#dateTimeInputContainer-0 input {
-  flex: 1;
-}
-
-/* ... (keep all the previous CSS rules) ... */
-
-.tournament {
-  background-color: #2A2B2E;
-  border: 1px solid #F5BC51;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 20px;
-  color: #F5BC51; /* This ensures all text within the tournament card is visible */
-}
-
-.tournament h2 {
-  color: #F5BC51;
-  margin-top: 0;
-}
-
-.tournament p {
-  color: #F5BC51;
-  margin: 5px 0;
-}
-
-.tournament ul {
-  list-style-type: none;
-  padding-left: 0;
-}
-
-.tournament li {
-  color: #F5BC51;
-  margin-bottom: 5px;
-}
-
-.no-students {
-  color: #85FFE2; /* Different color for "No students interested yet" */
-  font-style: italic;
-}
-
-.interested-students h3 {
-  cursor: pointer;
-  user-select: none;
-}
-
-.dropdown-arrow {
-  margin-left: 5px;
-}
-
-.student-list {
-  list-style-type: none;
-  padding-left: 20px;
-}
-
-.student-count {
-  font-weight: normal;
-}
-
-/* ... (keep all the remaining CSS rules) ... */
-
-.interest-button {
-  background-color: #F5BC51;
-  color: #2A2B2E;
-  border: none;
-  padding: 10px 15px;
-  margin-top: 10px;
-  cursor: pointer;
-  border-radius: 4px;
+  margin-top: 20px;
   font-size: 16px;
 }
 
-.interest-button:hover {
+.event-creation button:hover, #tournamentForm button:hover {
   background-color: #85FFE2;
 }
 
@@ -483,37 +398,17 @@ h1 {
   .menu-container {
     width: 100%;
   }
-
+  
   .menu-icon {
     font-size: 36px;
   }
-
+  
   nav a {
     font-size: 24px;
   }
-
-  .homepage-image img {
-    height: 300px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 10px;
-    padding: 10px;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  #tournamentForm {
-    padding: 10px;
-  }
   
-  #dateTimeInputContainer-0 {
-    flex-direction: column;
-  }
-  
-  #dateTimeInputContainer-0 input {
-    width: 100%;
+  .tournament, .event {
+    min-width: 200px;
   }
 }
 
@@ -521,38 +416,12 @@ h1 {
   .menu-icon {
     font-size: 24px;
   }
-
+  
   nav a {
     font-size: 18px;
   }
-
-  .homepage-image img {
-    height: 200px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 5px;
-    padding: 5px;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  .menu-icon {
-    font-size: 18px;
-  }
-
-  nav a {
-    font-size: 14px;
-  }
-
-  .homepage-image img {
-    height: 150px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 2px;
-    padding: 2px;
+  
+  .create-buttons {
+    flex-direction: column;
   }
 }
