@@ -150,10 +150,8 @@ window.onload = function() {
 
 
 
-
-
-
 //idk wtf this is or why we need a class lemme know if its important
+
 // const Grade = {
 //   FRESHMAN: Symbol('Freshman'),
 //   SOPHOMORE: Symbol('Sophomore'),

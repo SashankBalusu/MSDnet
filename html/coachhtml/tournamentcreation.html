@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MSD Events</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <!-- Include Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1><a>MSDnet</a></h1>
+        <div class="menu-icon">&#9776;</div>
+    </header>
+    <h1>Add a New Tournament</h1>
+    <div>
+        <form id="tournamentForm">
+            <label for="tournamentName">Tournament Name:</label>
+            <input type="text" id="tournamentName" required>
+
+            <div class="dateTimeSelectors" id="dateTimeSelectors">
+                <div id="dateTimeInputContainer-0">
+                    <label for="eventDate-0">Event Date:</label>
+                    <input type="date" id="eventDate-0" required>
+
+                    <label for="eventTimeStart-0">Event Time Start:</label>
+                    <input type="time" id="eventTimeStart-0" required>
+
+                    <label for="eventTimeEnd-0">Event Time:</label>
+                    <input type="time" id="eventTimeEnd-0" required>
+                </div>
+            </div>
+              <button id="addDate" onclick="addDateSelector()">+</button>
+
+            <label for="tournamentLocation">Tournament Location:</label>
+            <input type="text" id="tournamentLocation" required>
+
+            <label for="tournamentType">Tournament Type:</label>
+            <select name="tournamentType" id="tournamentType">
+                <option hidden selected>Select</option>
+                <option value="League">League</option>
+                <option value="Invitational">Invitational</option>
+            </select>
+            <div class="dropdown">
+                <h4>Events Offered:</h4>
+                <button type="button" id="dropdownButton">Select Options</button>
+                <div id="eventsDropdown" class="dropdown-content">
+                    <label><input type="checkbox" value="All CA Events"> All CA Events</label>
+                    <label><input type="checkbox" value="All NSDA Events"> All NSDA Events</label>
+                    <label><input type="checkbox" value="Policy"> Policy</label>
+                    <label><input type="checkbox" value="LD"> LD</label>
+                    <label><input type="checkbox" value="PF"> PF</label>
+                    <label><input type="checkbox" value="Parli"> Parli</label>
+                    <label><input type="checkbox" value="Congress"> Congress</label>
+                    <label><input type="checkbox" value="IX/NX"> IX/NX</label>
+                    <label><input type="checkbox" value="Impromptu"> Impromptu</label>
+                    <label><input type="checkbox" value="HI"> HI</label>
+                    <label><input type="checkbox" value="DI"> DI</label>
+                    <label><input type="checkbox" value="Duo"> Duo</label>
+                    <label><input type="checkbox" value="POI"> POI</label>
+                    <label><input type="checkbox" value="OPP"> OPP</label>
+                    <label><input type="checkbox" value="OA"> OA</label>
+                    <label><input type="checkbox" value="OO"> OO</label>
+                    <label><input type="checkbox" value="Info"> Info</label>
+                </div>
+              </div>
+
+
+            <label for="tournamentDescription">Tournament Description:</label>
+            <textarea id="tournamentDescription"></textarea>
+
+            <button type="submit">Create Tournament</button>
+        </form>
+
+
+
+    <script src="../../js/event_date_handling.js"></script>
+    <script src="../../js/tournament_form_submit.js" type="module"></script>
+</body>
+</html>
