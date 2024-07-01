@@ -3,7 +3,7 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
-  deleteUser
+  deleteUser,
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import {
   child,
@@ -79,16 +79,11 @@ login.addEventListener("click", function(){
             alert("your account has not been white listed. Please ask a coach to be added to the internal service.")
           }
           else {
-            console.log("success!")
-            console.log(access)
-            if (access == "coaches"){
-                
-                window.location = 'coachhtml/coachhome.html';
+            localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
+              console.log("success!")
+              console.log(access)
+              window.location = 'home.html';
 
-            }
-            else if (access == "Member" || access == "Captain" || access == "President"){
-                window.location = "studenthtml/studenthome.html"
-            }
           }
         } else {
           console.log("No data available");

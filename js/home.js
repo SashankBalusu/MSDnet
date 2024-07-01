@@ -36,6 +36,15 @@ window.onload = function() {
 
   auth.onAuthStateChanged(function(user) {
     console.log(user);
+    let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
+    console.log(accessLevel)
+    if (accessLevel == "coaches"){
+        let a = document.createElement("a")
+        a.href = "roster.html"
+        a.textContent = "Rosters"
+        document.getElementById("mainnav").appendChild(a)
 
+
+    }
   });
-};
+}
