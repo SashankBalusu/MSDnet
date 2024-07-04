@@ -126,7 +126,7 @@ const quotes = [
   "\"Push yourself, because no one else is going to do it for you.\" - Someone Driven",
   "\"Great things never came from comfort zones.\" - Neil Strauss",
   "\"Moving unintentionally is no different from standing in place.\" - Aneesh Mardikar",
-  "\"A pessimist sees difficulty in every opportunity. But an optimist? An optimist sees opportunity in every difficulty.\" \n - Winston Churchill \n - Sashank Balusu",
+  "\"A pessimist sees difficulty in every opportunity. But an optimist? An optimist sees opportunity in every difficulty.\" \n - Winston Churchill",
 ];
 
 const randQuoteInd = Math.floor(Math.random() * quotes.length);
