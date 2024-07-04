@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css" >
+    <link rel="stylesheet" type="text/css" href="css/background.css" >
+
 
 </head>
 <body>
@@ -15,14 +20,16 @@
         </nav>
         <div class="menu-icon">&#9776;</div>
     </header>
-    <div class="homepage-image">
-        <img alt="Imagine an inspirational landscape here.">
-        <div class="centered quote">
-          <h2></h2>
-          <p>"A pessimist sees difficulty in every opportunity. But an optimist? An optimist sees opportunity in every difficulty." <br> - <s>Winston Churchill</s> </br> - Sashank Balusu</p>
+    <div id = "main">
+        <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
+        <div id = "greetingWrapper" class = "greet"><p id = "greeting"></p></div>
+        <div class="homepage-image">
+          <div id = "motivation" class="centered quote">
+            <h2></h2>
+            <p>"A pessimist sees difficulty in every opportunity. But an optimist? An optimist sees opportunity in every difficulty." <br> - <s>Winston Churchill</s> </br> - Sashank Balusu</p>
+          </div>
         </div>
       </div>
-    
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
     <script src="js/imageshuffle.js"></script>
 

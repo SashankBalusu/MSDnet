@@ -78,6 +78,7 @@ login.addEventListener("click", function(){
           }
           else {
             localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
+            localStorage.setItem("userName", user["displayName"])
               console.log("success!")
               console.log(access)
               window.location = 'home.html';
@@ -105,32 +106,3 @@ login.addEventListener("click", function(){
       // ...
   });
 })
-
-// Random image on homepage
-const images = ['/homepageshuffle/image1.jpg',
-                'homepageshuffle/image2.webp',
-                'homepageshuffle/image3.jpg',
-              ];
-
-const randImgInd = Math.floor(Math.random() * images.length);
-const randomImage = images[randImgInd];
-const imgElement = document.querySelector('.homepage-image img');
-
-imgElement.src = randomImage;
-
-// Random quote on homepage
-const quotes = [
-  "\"The only way to do great work is to love what you do.\" - Steve Jobs",
-  "\"Believe you can and you're halfway there.\" - Theodore Roosevelt",
-  "\"Your limitation—it's only your imagination.\" - Someone Imaginative",
-  "\"Push yourself, because no one else is going to do it for you.\" - Someone Driven",
-  "\"Great things never came from comfort zones.\" - Neil Strauss",
-  "\"Moving unintentionally is no different from standing in place.\" - Aneesh Mardikar",
-  "\"A pessimist sees difficulty in every opportunity. But an optimist? An optimist sees opportunity in every difficulty.\" \n - Winston Churchill",
-];
-
-const randQuoteInd = Math.floor(Math.random() * quotes.length);
-const randomQuote = quotes[randQuoteInd];
-const quoteElement = document.querySelector('.quote p');
-
-quoteElement.textContent = randomQuote;
