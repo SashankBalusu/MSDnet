@@ -51,24 +51,22 @@ login.addEventListener("click", function(){
       let authUser = auth.currentUser;
       const dbRef = ref(getDatabase());
 
-      get(child(dbRef, `whitelist`)).then((snapshot) => {
+      get(child(dbRef, `people`)).then((snapshot) => {
         if (snapshot.exists()) {
           let result = snapshot.val()
           let validEmail = false
           console.log(result)
-          let whitelist = result
+          let people = result
           let access = ""
           let currEmail = user["email"]
           console.log(currEmail)
-          for (let accessLevel in whitelist){
-            for (let name in whitelist[accessLevel]){
-              if (whitelist[accessLevel][name] == currEmail){
+          for (let person in people){
+              if (people[person]["email"] == currEmail){
                 console.log("success")
-                access = accessLevel
+                access = people[person]["access"]
                 validEmail = true
                 break
               }
-            }
           }
           if (validEmail == false){
             //handle false email better in future. Currently deletes from database and alerts on screen

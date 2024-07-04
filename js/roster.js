@@ -96,7 +96,7 @@ window.onload = function() {
         access.appendChild(captainOption)
         access.appendChild(presidentOption)
         access.appendChild(memberOption)
-        access.valie = peopleList[i][3]
+        access.value = peopleList[i][3]
         wrapper.appendChild(name)
         wrapper.appendChild(email)
         wrapper.appendChild(access)
@@ -127,7 +127,8 @@ window.onload = function() {
           }
           let email = peopleList[i][1]
           let level = peopleList[i][3]
-          updates["/whitelist/" + level + "/" + name] = email
+          updates["/people/" + name + "/access"] = level
+          updates["/people/" + name + "/email"] = email
           // set(ref(db, 'whitelist/' + level + "/" + name), {
           //       name: email
           // });
