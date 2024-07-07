@@ -48,22 +48,39 @@ onAuthStateChanged(auth, (user) => {
     console.log(accessLevel)
     if (accessLevel == "Member" || accessLevel == "Captain"){
         const content = document.getElementById("memberCaptainMain")
-        const genCodeButton = document.createElement("button")
-        genCodeButton.textContent = "Generate Code"
-        genCodeButton.id = "generate"
-        const qrcode = document.createElement("div")
-        qrcode.id = "qrcode"
-        content.appendChild(genCodeButton)
-        content.appendChild(qrcode)
-        const qr = new QRCode(qrcode);
+        get(child(ref(db), `people/${user["displayName"]}` + "/generateCode")).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log(snapshot.val())
+            const qrcode = document.createElement("div")
+            qrcode.id = "qrcode"
+            content.appendChild(qrcode)
+            const qr = new QRCode(qrcode);
+            qr.makeCode(user["email"]);
 
-        genCodeButton.addEventListener("click", function(){
-            displayCode(qr, user["email"], 0)
-            // for (let i = 0; i <= user["email"].length; i++){
-            //     setInterval(displayCode, 1000, qr, user["email"], i)
-                
-            // }
+          }
+          else {
+            const genCodeButton = document.createElement("button")
+            genCodeButton.textContent = "Generate Code"
+            genCodeButton.id = "generate"
+            const qrcode = document.createElement("div")
+            qrcode.id = "qrcode"
+            content.appendChild(genCodeButton)
+            content.appendChild(qrcode)
+            const qr = new QRCode(qrcode);
+    
+            genCodeButton.addEventListener("click", function(){
+                displayCode(qr, user["email"], 0)
+                let updates = {}
+                updates[`people/${user["displayName"]}/generateCode`] = true
+                update(ref(db), updates)
+                // for (let i = 0; i <= user["email"].length; i++){
+                //     setInterval(displayCode, 1000, qr, user["email"], i)
+                    
+                // }
+            })
+          }
         })
+        
         
     }
   } else {
