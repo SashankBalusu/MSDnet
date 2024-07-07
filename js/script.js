@@ -80,18 +80,35 @@ login.addEventListener("click", function(){
           }
           else {
             const db = getDatabase()
-            set(ref(db, 'people/' + user["uid"]), {
-              username: user["displayName"],
-              email: user["email"],
-              access: access,
-            });
-            localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
-            localStorage.setItem("userName", user["displayName"])
-            localStorage.setItem("uid", user["uid"])
-
-              console.log("success!")
-              console.log(access)
-              window.location = 'home.html';
+            get(child(dbRef, `people/` + user["uid"])).then((snapshot) => {
+              if (!(snapshot.exists())) {
+                set(ref(db, 'people/' + user["uid"]), {
+                  username: user["displayName"],
+                  email: user["email"],
+                  access: access,
+                }).then(() => {
+                  localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
+                  localStorage.setItem("userName", user["displayName"])
+                  localStorage.setItem("uid", user["uid"])
+  
+                  console.log("success!")
+                  console.log(access)
+                  window.location = 'home.html';
+                });
+              }
+              else {
+                localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
+                localStorage.setItem("userName", user["displayName"])
+                localStorage.setItem("uid", user["uid"])
+    
+                console.log("success!")
+                console.log(access)
+                window.location = 'home.html';
+              }
+              
+            })
+            
+            
 
           }
         } else {

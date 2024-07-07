@@ -77,7 +77,10 @@ onAuthStateChanged(auth, (user) => {
                 //     setInterval(displayCode, 1000, qr, user["email"], i)
                     
                 // }
+                genCodeButton.remove()
+
             })
+
           }
         })
         
