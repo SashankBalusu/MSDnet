@@ -48,7 +48,7 @@ onAuthStateChanged(auth, (user) => {
     console.log(accessLevel)
     if (accessLevel == "Member" || accessLevel == "Captain"){
         const content = document.getElementById("memberCaptainMain")
-        get(child(ref(db), `people/${user["displayName"]}` + "/generateCode")).then((snapshot) => {
+        get(child(ref(db), `people/${user["uid"]}` + "/generateCode")).then((snapshot) => {
           if (snapshot.exists()) {
             console.log(snapshot.val())
             const qrcode = document.createElement("div")
@@ -71,7 +71,7 @@ onAuthStateChanged(auth, (user) => {
             genCodeButton.addEventListener("click", function(){
                 displayCode(qr, user["email"], 0)
                 let updates = {}
-                updates[`people/${user["displayName"]}/generateCode`] = true
+                updates[`people/${user["uid"]}/generateCode`] = true
                 update(ref(db), updates)
                 // for (let i = 0; i <= user["email"].length; i++){
                 //     setInterval(displayCode, 1000, qr, user["email"], i)

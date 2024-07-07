@@ -51,22 +51,24 @@ login.addEventListener("click", function(){
       let authUser = auth.currentUser;
       const dbRef = ref(getDatabase());
 
-      get(child(dbRef, `people`)).then((snapshot) => {
+      get(child(dbRef, `whitelist`)).then((snapshot) => {
         if (snapshot.exists()) {
           let result = snapshot.val()
           let validEmail = false
           console.log(result)
-          let people = result
+          let whitelist = result
           let access = ""
           let currEmail = user["email"]
           console.log(currEmail)
-          for (let person in people){
-              if (people[person]["email"] == currEmail){
+          for (let accessLevel in whitelist){
+            for (let name in whitelist[accessLevel]){
+              if (whitelist[accessLevel][name] == currEmail){
                 console.log("success")
-                access = people[person]["access"]
+                access = accessLevel
                 validEmail = true
                 break
               }
+            }
           }
           if (validEmail == false){
             //handle false email better in future. Currently deletes from database and alerts on screen
@@ -77,8 +79,16 @@ login.addEventListener("click", function(){
             alert("your account has not been white listed. Please ask a coach to be added to the internal service.")
           }
           else {
+            const db = getDatabase()
+            set(ref(db, 'people/' + user["uid"]), {
+              username: user["displayName"],
+              email: user["email"],
+              access: access,
+            });
             localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
             localStorage.setItem("userName", user["displayName"])
+            localStorage.setItem("uid", user["uid"])
+
               console.log("success!")
               console.log(access)
               window.location = 'home.html';

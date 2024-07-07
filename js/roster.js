@@ -127,8 +127,7 @@ window.onload = function() {
           }
           let email = peopleList[i][1]
           let level = peopleList[i][3]
-          updates["/people/" + name + "/access"] = level
-          updates["/people/" + name + "/email"] = email
+          updates["/whitelist/" + level + "/" + name] = email
           // set(ref(db, 'whitelist/' + level + "/" + name), {
           //       name: email
           // });
