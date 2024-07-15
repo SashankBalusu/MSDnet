@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events and Tournaments</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <header>
+        <h1><a>MSDnet</a></h1>
+        <nav id = "mainnav" class="menu-bar">
+          <a href="home.html">Home</a>
+          <a href="attendance.html">Attendance</a>
+          <a href="html/coachhtml/coachevents.html">Events</a>
+          <a href="#">Schedule</a>
+          <a href="tournaments.html">Tournaments</a>
+    
+        </nav>
+    
+    
+      </header>
+    <div id = "coachesView">
+        <div class="events-container">
+            <div class="events-header">
+                <div class="events-titles">
+                    <h1>Upcoming Events and Tournaments</h2>
+                </div>
+                <div class="create-buttons">
+                    <button id="createTournamentBtn">Create New Tournament</button>
+                    <button id="createEventBtn">Create New Event</button>
+                </div>
+            </div>
+    
+            <h3>Tournaments</h3>
+            <div id="tournamentRowCoach" class="scrollable-row"></div>
+    
+            <h3>Events</h3>
+            <div id="eventRowCoach" class="scrollable-row"></div>
+            
+        </div>
+    </div>
+    <div id = "studentsView">
+        <div class="events-header">
+            <div class="events-titles">
+                <h1>Upcoming Events and Tournaments</h2>
+            </div>
+        </div>
+        <h3>Tournaments</h3>
+        <div id="tournamentRowStudent" class="scrollable-row"></div>
+
+        <h3>Events</h3>
+        <div id="eventRowStudent" class="scrollable-row"></div>
+    </div>
+    
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script type="module" src="js/events.js"></script>
+</body>
+</html>
