@@ -93,7 +93,7 @@ login.addEventListener("click", function(){
   
                   console.log("success!")
                   console.log(access)
-                  window.location = 'home.html';
+                  window.location = 'onboarding.html';
                 });
               }
               else {
@@ -101,9 +101,19 @@ login.addEventListener("click", function(){
                 localStorage.setItem("userName", user["displayName"])
                 localStorage.setItem("uid", user["uid"])
     
+                if (snapshot.val()["onboarded"] == true && access != "coaches"){
+                  window.location = 'home.html';
+
+                }
+                else {
+                  window.location = 'onboarding.html';
+
+                }
+
                 console.log("success!")
                 console.log(access)
-                window.location = 'home.html';
+
+                
               }
               
             })

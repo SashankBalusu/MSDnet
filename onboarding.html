@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "css/styles.css">
+    <link rel = "stylesheet" href = "css/onboarding.css"> 
+</head>
+<body>
+    <div class="container">
+        <div class="pages">
+          <div class="page one">
+            <h1>Let's get you onboarded!</h1>
+            <div>
+              <button onClick="slide('next')">Next</button>
+            </div>
+          </div>
+          <div class="page two">
+            <h1>What's your preffered name?</h1>
+            <input id = "nameInput" type = "text">
+            <div>
+              <button onClick="slide('prev')">Previous</button>
+              <button onClick="slide('next')">Next</button>
+            </div>
+          </div>
+          <div class="page three">
+            <h1>What's your grade level and incoming status?</h1>
+            <div id = "gradeContainer">
+                <input id = "gradeInput" placeholder="Grade" type = "number" min="9" max="12"></input>
+                
+                <select name="period" id="period">
+                    <option value="8th off">8th off</option>
+                    <option value="8th Period Class">8th Period Class</option>
+                    <option value="7th off">7th off</option>
+                    <option value="7th Period Class">7th Period Class</option>
+                    <option value="After School Team">After School Team</option>
+
+                </select>
+                <input type="checkbox" id = "returningCheck" value="returning">
+                <label id = "returningLabel" for="returningCheck">Returning Member?</label>
+            </div>
+            
+            <div>
+              <button onClick="slide('prev')">Previous</button>
+              <button onClick="slide('next')">Next</button>
+            </div>
+          </div>
+          <div class="page four">
+            <div id = "form">
+                <h1 id = "eventsHeading">What events are you / do you want to compete in?</h1>
+                <input class = "eventCheck" type="checkbox" id = "Policy" value="Policy">
+                <label >Policy</label>
+                <input class = "eventCheck" type="checkbox" id="LD" value="LD">
+                <label >LD</label>
+                <input class = "eventCheck" type="checkbox" id="PF" value="PF">
+                <label>PF</label>
+                <input class = "eventCheck" type="checkbox" id="Parli" value="Parli">
+                <label>Parli</label>
+                <input class = "eventCheck" type="checkbox" id="Congress" value="Congress">
+                <label>Congress</label>
+                <input class = "eventCheck" type="checkbox" id="Extemp" value="Extemp">
+                <label>Extemp</label>
+                <input class = "eventCheck" type="checkbox" id="IMP" value="IMP">
+                <label>IMP</label>
+                <input class = "eventCheck" type="checkbox" id="DUO" value="DUO">
+                <label>DUO</label>
+                <br>
+                <input class = "eventCheck" type="checkbox" id="HI" value="HI">
+                <label>HI</label>
+                <input class = "eventCheck" type="checkbox" id="DI" value="DI">
+                <label>DI</label>
+                <input class = "eventCheck" type="checkbox" id="POI" value="POI">
+                <label>POI</label>
+                <input class = "eventCheck" type="checkbox" id="OPP" value="OPP">
+                <label>OPP</label>
+                <input class = "eventCheck" type="checkbox" id="OO" value="OO">
+                <label>OO</label>
+                <input class = "eventCheck" type="checkbox" id="OA" value="OA">
+                <label>OA</label>
+                <input class = "eventCheck" type="checkbox" id="INFO" value="INFO">
+                <label>INFO</label>
+                <input class = "eventCheck" type="checkbox" id="DEC" value="DEC">
+                <label>DEC</label>
+                <input class = "eventCheck" type="checkbox" id="PO" value="PO">
+                <label>PO (Chaith Only)</label>
+            </div>
+            
+
+ 
+            <div>
+              <button onClick="slide('prev')">Previous</button>
+              <button id = "submit">Submit</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <script src = "js/onboarding.js"></script>
+
+      <script type = "module" src = "js/onboardDB.js"></script>
+
+</body>
+</html>
