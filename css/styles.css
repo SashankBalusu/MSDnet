@@ -14,6 +14,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  /*padding: 20px;*/
 }
 
 header h1 {
@@ -34,7 +35,7 @@ nav.menu-bar {
 nav.menu-bar a {
   align-items: baseline;
   text-decoration: none;
-  padding: 5px 20px;
+  padding: 5px 10px;
   transition: background-color 0.3s ease;
   font-size: 20px;
   color: #F5BC51;
@@ -146,6 +147,7 @@ nav a:hover {
 .create-buttons {
   display: flex;
   gap: 10px;
+  flex-direction: row;
 }
 
 .create-buttons button {
@@ -400,35 +402,90 @@ nav a:hover {
   background-color: #85FFE2;
 }
 
-/* Responsive design */
-@media screen and (max-width: 768px) {
-  .menu-container {
+/* Responsive design - Bad Version */
+/*
+@media screen and (max-width:1025px) {
+
+  nav.menu-bar {
+    width: 100% ;
+    position: absolute ;
+    top: 35px;
+    right: 2;
+    z-index: 2; 
+    display: flex;
+    margin-right: 10px;
+    align-items: baseline;
+    gap: 5px;
+
+}
+    
+  nav.menu-bar a{
     width: 100%;
+    align-items: baseline;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 10px;
+    border-radius: 5px;
   }
-  
-  .menu-icon {
-    font-size: 36px;
-  }
-  
-  nav a {
-    font-size: 24px;
-  }
-  
-  .tournament, .event {
-    min-width: 200px;
+}
+*/
+
+/*Responsive Design (kinda shit but works)*/
+
+@media screen and (max-width:1025px) {
+
+  nav.menu-bar {
+    width: 100% ;
+    position: absolute ;
+    top: 75px;
+    right: 0;
+    z-index: 2; 
+    display: flex;
+    margin-left: 50px;
+    margin-right: 1px;
+    align-items: baseline;
+
+}
+     
+
+  nav.menu-bar a{
+    width: 100%;
+    color: #333;
+    background: #F5BC51;
+    margin-left: 5px;
+    margin-right: 5px;
+    align-items: baseline;
+    text-decoration: none;
+    font-size: 13px;
+    border-radius: 4px;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .menu-icon {
-    font-size: 24px;
-  }
-  
-  nav a {
-    font-size: 18px;
-  }
-  
-  .create-buttons {
-    flex-direction: column;
+@media screen and (max-width:413px) {
+
+  nav.menu-bar {
+    width: 100% ;
+    position: absolute ;
+    top: 75px;
+    right: 0;
+    z-index: 2; 
+    display: flex;
+    margin-left: 50px;
+    margin-right: 1px;
+    align-items: baseline;
+
+}
+     
+
+  nav.menu-bar a{
+    width: 100%;
+    color: #333;
+    background: #F5BC51;
+    margin-left: 3px;
+    margin-right: 3px;
+    align-items: baseline;
+    text-decoration: none;
+    font-size: 8px;
+    border-radius: 1px;
   }
 }
