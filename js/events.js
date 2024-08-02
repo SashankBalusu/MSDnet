@@ -1,7 +1,7 @@
 // coachevents.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+import { getDatabase, ref, onValue, set, remove } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 // Initialize Firebase (add your config here)
@@ -23,18 +23,18 @@ document.addEventListener('DOMContentLoaded', () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
-    //if user is member, captain, or president
-    if (accessLevel == "Member" || accessLevel == "Captain" || accessLevel == "President"){
-      document.getElementById("coachesView").style.display = "none"
-      fetchEventsAndTournaments("Student")
-    }
-    //if user is coach
-    if (accessLevel == "coaches"){
-      document.getElementById("studentsView").style.display = "none"
-      fetchEventsAndTournaments("Coach");
-      //add protocol if coach logs in
-    }
-      
+      //if user is member, captain, or president
+      if (accessLevel == "Member" || accessLevel == "Captain" || accessLevel == "President") {
+        document.getElementById("coachesView").style.display = "none"
+        fetchEventsAndTournaments("Student")
+      }
+      //if user is coach
+      if (accessLevel == "coaches") {
+        document.getElementById("studentsView").style.display = "none"
+        fetchEventsAndTournaments("Coach");
+        //add protocol if coach logs in
+      }
+
     } else {
       console.log("User not logged in");
     }
@@ -69,7 +69,7 @@ function fetchEventsAndTournaments(access) {
 function displayEvents(events, access) {
   const eventRow = document.getElementById(`eventRow${access}`);
   eventRow.innerHTML = '';
-  
+
   for (const [id, event] of Object.entries(events)) {
     const eventElement = createEventElement(id, event);
     eventRow.appendChild(eventElement);
@@ -79,24 +79,24 @@ function displayEvents(events, access) {
 function displayTournaments(tournaments, access) {
   const tournamentRow = document.getElementById(`tournamentRow${access}`);
   tournamentRow.innerHTML = '';
-  
+
   for (const [id, tournament] of Object.entries(tournaments)) {
-    if (access == "Student"){
+    if (access == "Student") {
       const tournamentElement = createTournamentElementStudent(id, tournament);
       tournamentRow.appendChild(tournamentElement);
     }
-    if (access == "Coach"){
+    if (access == "Coach") {
       const tournamentElement = createTournamentElement(id, tournament);
       tournamentRow.appendChild(tournamentElement);
     }
-    
+
   }
 }
 
 function createEventElement(id, event) {
   const div = document.createElement('div');
   div.className = 'event';
-  
+
   const dateHtml = getDateString(event.dateData);
 
   div.innerHTML = `
@@ -132,8 +132,41 @@ function createEventElement(id, event) {
 function createTournamentElementStudent(id, tournament) {
   const div = document.createElement('div');
   div.className = 'tournament';
-  console.log(tournament.Name)
+  // console.log(tournament.Name)
   const dateHtml = getDateString(tournament.dateData);
+
+  let interested = false;
+  if (tournament.interestedStudents) {
+    if (tournament.interestedStudents.hasOwnProperty(localStorage.getItem("uid"))) {
+      interested = true;
+    }
+  }
+
+  let button_string = '';
+  if (interested) {
+    button_string = `<button class="uninterest-button" onclick="unindicateInterest('${tournament.name}')">Unindicate Interest</button>`
+  } else {
+    button_string = `
+    <form id="event-checkbox-form">
+      <label>
+        <input type="checkbox" name="topics" value="Policy"> Policy
+      </label><br>
+      <label>
+        <input type="checkbox" name="topics" value="Extemp"> Extemp
+      </label><br>
+      <label>
+        <input type="checkbox" name="topics" value="Impromptu"> Impromptu
+      </label><br>
+      <label>
+        <input type="checkbox" name="topics" value="Duo"> Duo
+      </label><br>
+      <label>
+        <input type="text" name="partners" placeholder="Partners">
+      <label></label>
+    </form>
+    <button class="interest-button" onclick="indicateInterest('${tournament.name}')">Indicate Interest</button>
+    `;
+  }
 
   div.innerHTML = `
     <h3>${tournament.name}</h3>
@@ -144,8 +177,7 @@ function createTournamentElementStudent(id, tournament) {
       <p class="description"><strong>Description:</strong> ${tournament.description || 'No description provided'}</p>
       <button class="show-more-btn">Show More</button>
     </div>
-    <button class="interest-button" onclick="indicateInterest('${tournament.name}')">Indicate Interest</button>
-
+    ${button_string}
   `;
 
   const descriptionContainer = div.querySelector('.description-container');
@@ -165,25 +197,46 @@ function createTournamentElementStudent(id, tournament) {
     }
   });
 
- 
+
 
   return div;
 }
 
-window.indicateInterest = function(tournamentName) {
+window.indicateInterest = function (tournamentName) {
+  const selectedInfo = submitEventPartnerSelection();
+  let partners = ["n/a"];
+  if (selectedInfo.partners.length != 0) {
+    partners = selectedInfo.partners;
+  }
+
   let user = localStorage.getItem("userName")
   let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
 
   const interestRef = ref(db, `tournaments/${tournamentName}/interestedStudents/${localStorage.getItem("uid")}`);
-    set(interestRef, { name: user, level: accessLevel })
-      .then(() => alert('Interest indicated successfully!'))
-      .catch((error) => console.error('Error indicating interest:', error));
+  set(interestRef, { name: user, level: accessLevel, events: selectedInfo.topics, partners: partners })
+    .then(() => alert('Interest indicated successfully!'))
+    .catch((error) => console.error('Error indicating interest:', error));
+  
+  location.reload();
+}
+
+window.unindicateInterest = function (tournamentName) {
+  const uid = localStorage.getItem("uid");
+
+  const interestRef = ref(db, `tournaments/${tournamentName}/interestedStudents/${uid}`);
+
+  remove(interestRef)
+    .then(() => alert('Interest removed successfully!'))
+    .catch((error) => console.error('Error removing interest:', error));
+  
+
+  location.reload();
 }
 
 function createTournamentElement(id, tournament) {
   const div = document.createElement('div');
   div.className = 'tournament';
-  
+
   const dateHtml = getDateString(tournament.dateData);
 
   div.innerHTML = `
@@ -198,12 +251,12 @@ function createTournamentElement(id, tournament) {
     <div class="interested-students">
       <h4>Interested Students <span class="student-count">(${Object.keys(tournament.interestedStudents || {}).length})</span> <span class="dropdown-arrow">▼</span></h4>
       <ul class="student-list" style="display: none;">
-        ${tournament.interestedStudents ? 
-          Object.values(tournament.interestedStudents)
-            .map(student => `<li>${student.name} (${student.level})</li>`)
-            .join('') : 
-          '<li>No students interested yet</li>'
-        }
+        ${tournament.interestedStudents ?
+      Object.values(tournament.interestedStudents)
+        .map(student => `<li>${student.name} (${student.level})</li>`)
+        .join('') :
+      '<li>No students interested yet</li>'
+    }
       </ul>
     </div>
   `;
@@ -256,4 +309,24 @@ function formatDate(dateString) {
   if (!dateString) return 'Not specified';
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function submitEventPartnerSelection() {
+  const form = document.getElementById('event-checkbox-form');
+  const checkboxes = form.querySelectorAll('input[name="topics"]');
+  const partner = form.querySelector('input[name="partners"]');
+  const checkedTopics = [];
+  checkboxes.forEach((checkbox) => {
+    if (checkbox.checked) {
+      checkedTopics.push(checkbox.value);
+    }
+  });
+  let partners = [];
+  if (partner.value != "") {
+    partners = partner.value.split(',').map(item => item.trim());
+  }
+  return {
+    topics: checkedTopics,
+    partners: partners,
+  };
 }
