@@ -18,6 +18,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
+const isNumeric = (string) => /^[+-]?\d+(\.\d+)?$/.test(string)
+
 
 document.addEventListener('DOMContentLoaded', () => {
   onAuthStateChanged(auth, (user) => {
@@ -57,6 +59,14 @@ document.getElementById("closeTournamentForm").addEventListener("click", functio
   document.getElementById("tournamentForm").style.display = "none";
 
 })
+document.getElementById("createAllEvents").addEventListener("click", function(){
+  document.getElementById("eventForm").style.display = "block";
+
+})
+document.getElementById("closeEventForm").addEventListener("click", function(){
+  document.getElementById("eventForm").style.display = "none";
+
+})
 document.getElementById("massCreateTournament").addEventListener("click", function(){
   const textarea = document.getElementById("massTournamentArea")
   console.log(textarea.value.split("\n"))
@@ -66,24 +76,65 @@ document.getElementById("massCreateTournament").addEventListener("click", functi
   for (let item of textFiltered){
     let itemSplit = item.split("\t")
     console.log(item.split("\t"))
+    if (itemSplit[2] == ""){
+      alert("tournament name cant be blank!!")
+      return
+    }
+    if (itemSplit[2].includes("/")){
+      itemSplit[2] = itemSplit[2].replaceAll("/", "-")
+    }
     set(ref(db, 'tournaments/' + itemSplit[2]), {
             name: itemSplit[2],
             description: itemSplit[3],
             events: itemSplit[4],
-            timeData: {
-              0: {
-                date: itemSplit[0]
-              }
-            }
+            date: itemSplit[0]
       });
     
   }
-  let textAreaContent = textarea.value.split("\t").join("\n").split("\n")
   document.getElementById("tournamentForm").style.display = "none";
   window.location.reload()
   
 })
-
+document.getElementById("massCreateEvent").addEventListener("click", function(){
+  const textarea = document.getElementById("massEventArea")
+  let step1 = textarea.value.replace(/[.#$]/g, '');
+  let textFiltered = step1.split("\n").filter(a => isNumeric(a.slice(0, 1)))
+  console.log(textFiltered)
+  for (let item of textFiltered){
+    //"8/16	Friday	3-4:30	MSD Day Preperation	100s 	no	all"
+    let itemSplit = item.split("\t")
+    if (itemSplit[3] == "") {
+      alert("event name cant be blank!!")
+      return
+    }
+    let times = itemSplit[2].split("-")
+    let startTime = times[0]
+    if (!startTime.includes(":")){
+      startTime+=":00"
+    }
+    let endTime = times[1]
+    if (!endTime.includes(":")){
+      endTime+=":00"
+    }
+    if (itemSplit[3].includes("/")){
+      itemSplit[3] = itemSplit[3].replaceAll("/", "-")
+    }
+    console.log(itemSplit[3])
+    console.log(startTime, endTime)
+    set(ref(db, 'events/' + itemSplit[3]), {
+      name: itemSplit[3],
+      date: itemSplit[0],
+      dayOfWeek: itemSplit[1],
+      location: itemSplit[4],
+      food: itemSplit[5],
+      coaches: itemSplit[6],
+      timeEnd: endTime,
+      timeStart: startTime
+    });
+  }
+  document.getElementById("eventForm").style.display = "none";
+  window.location.reload()
+})
 function fetchEventsAndTournaments(access) {
   const eventsRef = ref(db, 'events');
   const tournamentsRef = ref(db, 'tournaments');
@@ -132,14 +183,14 @@ function createEventElement(id, event) {
   div.className = 'event';
   
   const dateHtml = getDateString(event.dateData);
-
+  let timeForm = event.timeStart + ":" +  event.timeEnd
   div.innerHTML = `
     <h3>${event.name}</h3>
-    ${dateHtml}
+    <p>${event.date}, ${event.dayOfWeek}<p>
     <p><strong>Location:</strong> ${event.location || 'Not specified'}</p>
-    <p><strong>Type:</strong> ${event.type || 'Not specified'}</p>
+    <p><strong>Food?</strong> ${event.food || 'Not specified'}</p>
     <div class="description-container">
-      <p class="description"><strong>Description:</strong> ${event.description || 'No description provided'}</p>
+      <p class="description"><strong>Time:</strong> ${timeForm || 'No description provided'}</p>
       <button class="show-more-btn">Show More</button>
     </div>
   `;
@@ -222,7 +273,7 @@ function createTournamentElement(id, tournament) {
 
   div.innerHTML = `
   <h3>${tournament.name}</h3>
-  <p><strong>Date:</strong> ${tournament.location || 'Not specified'}</p>
+  <p><strong>Date:</strong> ${tournament.date || 'Not specified'}</p>
   <p><strong>Events:</strong> ${tournament.description || 'Not specified'}</p>
 
   <div class="description-container">

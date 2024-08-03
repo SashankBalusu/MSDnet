@@ -358,57 +358,9 @@ nav a:hover {
 }
 
 /* Form Styling */
-.event-creation, #tournamentForm {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #2A2B2E;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  color: #F5BC51;
-}
 
-.event-creation h2, #tournamentForm h2 {
-  color: #F5BC51;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
 
-.event-creation label, #tournamentForm label {
-  display: block;
-  margin-top: 10px;
-  color: #F5BC51;
-}
 
-.event-creation input:not([type="checkbox"]),
-.event-creation textarea,
-#tournamentForm input[type="text"],
-#tournamentForm input[type="date"],
-#tournamentForm select,
-#tournamentForm textarea {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #F5BC51;
-  border-radius: 4px;
-  background-color: #333;
-  color: #F5BC51;
-}
-
-.event-creation button, #tournamentForm button {
-  background-color: #F5BC51;
-  color: #2A2B2E;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-size: 16px;
-}
-
-.event-creation button:hover, #tournamentForm button:hover {
-  background-color: #85FFE2;
-}
 
 /* Responsive design - Bad Version */
 /*
