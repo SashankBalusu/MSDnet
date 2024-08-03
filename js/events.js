@@ -49,6 +49,40 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = 'html/tournamentcreation.html';
   });
 });
+document.getElementById("createAllTournaments").addEventListener("click", function(){
+  document.getElementById("tournamentForm").style.display = "block";
+
+})
+document.getElementById("closeTournamentForm").addEventListener("click", function(){
+  document.getElementById("tournamentForm").style.display = "none";
+
+})
+document.getElementById("massCreateTournament").addEventListener("click", function(){
+  const textarea = document.getElementById("massTournamentArea")
+  console.log(textarea.value.split("\n"))
+  let step1 = textarea.value.replace(/[.#$]/g, '');
+  let textFiltered = step1.split("\n").filter(a => !a.toLowerCase().includes("semester"));
+  console.log(textFiltered)
+  for (let item of textFiltered){
+    let itemSplit = item.split("\t")
+    console.log(item.split("\t"))
+    set(ref(db, 'tournaments/' + itemSplit[2]), {
+            name: itemSplit[2],
+            description: itemSplit[3],
+            events: itemSplit[4],
+            timeData: {
+              0: {
+                date: itemSplit[0]
+              }
+            }
+      });
+    
+  }
+  let textAreaContent = textarea.value.split("\t").join("\n").split("\n")
+  document.getElementById("tournamentForm").style.display = "none";
+  window.location.reload()
+  
+})
 
 function fetchEventsAndTournaments(access) {
   const eventsRef = ref(db, 'events');
@@ -137,11 +171,11 @@ function createTournamentElementStudent(id, tournament) {
 
   div.innerHTML = `
     <h3>${tournament.name}</h3>
-    ${dateHtml}
-    <p><strong>Location:</strong> ${tournament.location || 'Not specified'}</p>
-    <p><strong>Type:</strong> ${tournament.type || 'Not specified'}</p>
+    <p><strong>Date:</strong> ${tournament.location || 'Not specified'}</p>
+    <p><strong>Events:</strong> ${tournament.description || 'Not specified'}</p>
+
     <div class="description-container">
-      <p class="description"><strong>Description:</strong> ${tournament.description || 'No description provided'}</p>
+      <p class="description"><strong>Description:</strong> ${tournament.events || 'No description provided'}</p>
       <button class="show-more-btn">Show More</button>
     </div>
     <button class="interest-button" onclick="indicateInterest('${tournament.name}')">Indicate Interest</button>
@@ -187,14 +221,14 @@ function createTournamentElement(id, tournament) {
   const dateHtml = getDateString(tournament.dateData);
 
   div.innerHTML = `
-    <h3>${tournament.name}</h3>
-    ${dateHtml}
-    <p><strong>Location:</strong> ${tournament.location || 'Not specified'}</p>
-    <p><strong>Type:</strong> ${tournament.type || 'Not specified'}</p>
-    <div class="description-container">
-      <p class="description"><strong>Description:</strong> ${tournament.description || 'No description provided'}</p>
-      <button class="show-more-btn">Show More</button>
-    </div>
+  <h3>${tournament.name}</h3>
+  <p><strong>Date:</strong> ${tournament.location || 'Not specified'}</p>
+  <p><strong>Events:</strong> ${tournament.description || 'Not specified'}</p>
+
+  <div class="description-container">
+    <p class="description"><strong>Description:</strong> ${tournament.events || 'No description provided'}</p>
+    <button class="show-more-btn">Show More</button>
+  </div>
     <div class="interested-students">
       <h4>Interested Students <span class="student-count">(${Object.keys(tournament.interestedStudents || {}).length})</span> <span class="dropdown-arrow">▼</span></h4>
       <ul class="student-list" style="display: none;">

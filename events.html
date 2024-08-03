@@ -8,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/events.css">
+
 </head>
 <body>
     <header>
@@ -30,6 +32,8 @@
                     <h1>Upcoming Events and Tournaments</h2>
                 </div>
                 <div class="create-buttons">
+                    <button id="createAllTournaments">Mass Enter Tournaments</button>
+                    <button id="createAllEvents">Mass Enter Events</button>
                     <button id="createTournamentBtn">Create New Tournament</button>
                     <button id="createEventBtn">Create New Event</button>
                 </div>
@@ -42,6 +46,17 @@
             <div id="eventRowCoach" class="scrollable-row"></div>
             
         </div>
+        <div class="form-popup" id="tournamentForm">
+            <form class="form-container">
+              <h1>Tournaments</h1>
+          
+              <label><b>Tournament content from sheets</b></label>
+              <textarea id = "massTournamentArea" placeholder="Copy paste here" name="ctnt"></textarea>
+          
+              <button id = "massCreateTournament" class="btn">Submit</button>
+              <button id = "closeTournamentForm" type="button" class="btn cancel" onclick="closeTournamentForm()">Close</button>
+            </form>
+          </div>
     </div>
     <div id = "studentsView">
         <div class="events-header">

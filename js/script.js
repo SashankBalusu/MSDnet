@@ -100,8 +100,7 @@ login.addEventListener("click", function(){
                 localStorage.setItem("accessLevel", CryptoJS.AES.encrypt(access, "Ngodeinweb"))
                 localStorage.setItem("userName", user["displayName"])
                 localStorage.setItem("uid", user["uid"])
-    
-                if (snapshot.val()["onboarded"] == true && access != "coaches"){
+                if (snapshot.val()["onboarded"] == true || access == "coaches"){
                   window.location = 'home.html';
 
                 }
