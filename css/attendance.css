@@ -1,3 +1,11 @@
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+* {
+  color: #F5BC51
+}
 img {
     margin: 25vh auto;
     --s: 10px; /* control the size */
@@ -5,5 +13,84 @@ img {
     border: calc(2*var(--s)) solid #0000;
     outline: 1px solid #F5BC51;
     outline-offset: calc(-1*var(--s));
-    background: conic-gradient(from 90deg at 1px 1px,#0000 25%,#F5BC51 0);
-  }
+}
+/* .card {
+  display: inline-block;
+  width: 10%;
+  min-height: 100px;
+  max-height: 100px;
+  overflow-y: scroll;
+  background-color: gray;
+  border-radius: 8px; 
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+} */
+.card {
+  display: inline-block;
+  min-width: 15vw;
+  min-height: 25vh;
+  max-height: 25vh;
+  padding: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+	border-radius: 12px;
+	background: linear-gradient(170deg, #383838, #1f1f1f);
+	position: relative;
+	box-shadow: 0 25px 50px rgba(0, 0, 0, 0.55);
+	cursor: pointer;
+	transition: all 0.3s;
+
+}
+
+.card:hover {
+	transform: scale(1.04);
+}
+
+.card > p {
+	font-size: 1.8rem;
+}
+.block {
+	position: relative;
+	margin: 300px auto 0;
+	width: 500px;
+	height: 250px;
+	background: linear-gradient(0deg, #000, #272727);
+}
+
+.moving-border:before, .moving-border:after {
+  border-radius: 8px;
+	content: '';
+	position: absolute;
+	left: -2px;
+	top: -2px;
+	background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, 
+		#0000ff, #00ff00,#ffff00, #ff0000);
+	background-size: 400%;
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	z-index: -1;
+	animation: steam 20s linear infinite;
+}
+
+@keyframes steam {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.moving-border:after {
+	filter: blur(50px);
+}
+.scrollable-row {
+  height: 40vh;
+}
+.scrollable-row::-webkit-scrollbar {
+  overflow-x: hidden;
+}
