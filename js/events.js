@@ -76,11 +76,49 @@ function displayEvents(events, access) {
   }
 }
 
+function parseDate(dateStr) {
+  if (dateStr == "TBD") {
+    return Infinity;
+  }
+
+  // console.log("current date str: ", dateStr);
+  try {
+    const [monthDay, range] = dateStr.split('/');
+  } catch {
+    return Infinity;
+  }
+  const [monthDay, range] = dateStr.split('/');
+  const [startDay] = range.split('-');
+
+  const month = parseInt(monthDay, 10);
+  const day = parseInt(startDay, 10);
+  const year = new Date().getFullYear();
+
+  const startDate = new Date(year, month - 1, day);
+  return startDate;
+}
+
 function displayTournaments(tournaments, access) {
   const tournamentRow = document.getElementById(`tournamentRow${access}`);
   tournamentRow.innerHTML = '';
 
+  const sortedTournaments = Object.entries(tournaments)
+    .sort(([, a], [, b]) => {
+        const dateA = parseDate(a.date);
+        const dateB = parseDate(b.date);
+        return dateA - dateB;
+    });
+
+  const sortedTournamentsObject = Object.fromEntries(sortedTournaments);
+
+  console.log(sortedTournamentsObject);
+  console.log(tournaments);
+
+  // for (const [id, tournament] of Object.entries(sortedTournamentsObject)) {
   for (const [id, tournament] of Object.entries(tournaments)) {
+    console.log(tournament.date);
+    // console.log(id);
+    // console.log(tournament);
     if (access == "Student") {
       const tournamentElement = createTournamentElementStudent(id, tournament);
       tournamentRow.appendChild(tournamentElement);
@@ -97,7 +135,9 @@ function createEventElement(id, event) {
   const div = document.createElement('div');
   div.className = 'event';
 
-  const dateHtml = getDateString(event.dateData);
+  // const dateHtml = getDateString(event.dateData);
+  const dateHtml = "<p><strong>Date: </strong>" + event.date + "</p>";
+  // const dateHtml = event.date;
 
   div.innerHTML = `
     <h3>${event.name}</h3>
@@ -133,7 +173,8 @@ function createTournamentElementStudent(id, tournament) {
   const div = document.createElement('div');
   div.className = 'tournament';
   // console.log(tournament.Name)
-  const dateHtml = getDateString(tournament.dateData);
+  // const dateHtml = getDateString(tournament.dateData);
+  const dateHtml = "<p><strong>Date: </strong>" + tournament.date + "</p>";
 
   let interested = false;
   if (tournament.interestedStudents) {
@@ -172,7 +213,9 @@ function createTournamentElementStudent(id, tournament) {
     <h3>${tournament.name}</h3>
     ${dateHtml}
     <p><strong>Location:</strong> ${tournament.location || 'Not specified'}</p>
+    <p><strong>Cost:</strong> ${tournament.cost || 'Free'}</p>
     <p><strong>Type:</strong> ${tournament.type || 'Not specified'}</p>
+    <p><strong>Judges Needed:</strong> ${tournament.tournamentJudging || 'Not specified'}</p>
     <div class="description-container">
       <p class="description"><strong>Description:</strong> ${tournament.description || 'No description provided'}</p>
       <button class="show-more-btn">Show More</button>
@@ -237,13 +280,16 @@ function createTournamentElement(id, tournament) {
   const div = document.createElement('div');
   div.className = 'tournament';
 
-  const dateHtml = getDateString(tournament.dateData);
+  // const dateHtml = getDateString(tournament.dateData);
+  const dateHtml = "<p><strong>Date: </strong>" + tournament.date + "</p>";
 
   div.innerHTML = `
     <h3>${tournament.name}</h3>
     ${dateHtml}
     <p><strong>Location:</strong> ${tournament.location || 'Not specified'}</p>
+    <p><strong>Cost:</strong> ${tournament.cost || 'Free'}</p>
     <p><strong>Type:</strong> ${tournament.type || 'Not specified'}</p>
+    <p><strong>Judges Needed:</strong> ${tournament.tournamentJudging || 'Not specified'}</p>
     <div class="description-container">
       <p class="description"><strong>Description:</strong> ${tournament.description || 'No description provided'}</p>
       <button class="show-more-btn">Show More</button>
@@ -296,6 +342,7 @@ function createTournamentElement(id, tournament) {
 }
 
 function getDateString(dateData) {
+  // console.log("date data: ", dateData);
   if (dateData && Object.keys(dateData).length > 0) {
     return Object.values(dateData)
       .map(day => `<p>${formatDate(day.date)}</p>`)
