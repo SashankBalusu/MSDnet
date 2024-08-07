@@ -66,69 +66,161 @@ function fetchEventsAndTournaments(access) {
   });
 }
 
+function findLoc(el, arr, st, en) {
+  st = st || 0;
+  en = en || arr.length;
+  var pivot = parseInt(st + (en - st) / 2, 10);
+  if (arr[pivot == el]) {
+    return pivot
+  }
+  else if (en - st <= 1) {
+    if (arr[pivot] > el) {
+      return pivot - 1
+    }
+    else {
+      return pivot
+    }
+  }
+  if (arr[pivot] < el) {
+    return findLoc(el, arr, pivot, en);
+  } else {
+    return findLoc(el, arr, st, pivot);
+  }
+}
+
 function displayEvents(events, access) {
   const eventRow = document.getElementById(`eventRow${access}`);
   eventRow.innerHTML = '';
 
-  for (const [id, event] of Object.entries(events)) {
-    const eventElement = createEventElement(id, event);
+  let sortedDateArr = [];
+  let sortedKeyArr = [];
+  for (let key in events) {
+    if (events[key]["date"]) {
+
+      let date = events[key]["date"];
+      if (date.toLowerCase().includes("tbd")) {
+        sortedDateArr.push("TBD");
+        sortedKeyArr.push(key);
+        continue;
+      }
+
+      date = events[key]["date"].split("-")[0];
+      let dateSplit = date.split("/");
+
+      if (parseInt(dateSplit[0]) >= 1 && parseInt(dateSplit[0]) <= 6) {
+        date += "/" + ((new Date().getFullYear()) + 1)
+      } else {
+        date += "/" + new Date().getFullYear()
+      }
+
+      let splits = date.split("/");
+      let month = splits[0].toString();
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let day = splits[1].toString();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      let year = splits[2].toString();
+      let dateStr = year + "-" + month + "-" + day;
+
+      let currDay = new Date()
+      let eventDate = new Date(Date.parse(dateStr));
+      if (isNaN(eventDate)) {
+        sortedDateArr.push("TBD");
+        sortedKeyArr.push(key);
+        continue;
+      }
+      let Difference_In_Time = eventDate - currDay;
+      let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+
+      if (sortedDateArr.length == 0) {
+        sortedDateArr.push(Difference_In_Days);
+        sortedKeyArr.push(key);
+      } else {
+        let loc = findLoc(Difference_In_Days, sortedDateArr) + 1;
+        sortedDateArr.splice(loc, 0, Difference_In_Days);
+        sortedKeyArr.splice(loc, 0, key);
+      }
+    }
+  }
+
+  sortedKeyArr.forEach((key) => {
+    const eventElement = createEventElement(key, events[key]);
     eventRow.appendChild(eventElement);
-  }
-}
-
-function parseDate(dateStr) {
-  if (dateStr == "TBD") {
-    return Infinity;
-  }
-
-  // console.log("current date str: ", dateStr);
-  try {
-    const [monthDay, range] = dateStr.split('/');
-  } catch {
-    return Infinity;
-  }
-  const [monthDay, range] = dateStr.split('/');
-  const [startDay] = range.split('-');
-
-  const month = parseInt(monthDay, 10);
-  const day = parseInt(startDay, 10);
-  const year = new Date().getFullYear();
-
-  const startDate = new Date(year, month - 1, day);
-  return startDate;
+  })
 }
 
 function displayTournaments(tournaments, access) {
   const tournamentRow = document.getElementById(`tournamentRow${access}`);
   tournamentRow.innerHTML = '';
 
-  const sortedTournaments = Object.entries(tournaments)
-    .sort(([, a], [, b]) => {
-        const dateA = parseDate(a.date);
-        const dateB = parseDate(b.date);
-        return dateA - dateB;
-    });
 
-  const sortedTournamentsObject = Object.fromEntries(sortedTournaments);
+  let sortedDateArr = [];
+  let sortedKeyArr = [];
+  for (let key in tournaments) {
+    if (tournaments[key]["date"]) {
 
-  console.log(sortedTournamentsObject);
-  console.log(tournaments);
+      let date = tournaments[key]["date"];
+      if (date.toLowerCase().includes("tbd")) {
+        sortedDateArr.push("TBD");
+        sortedKeyArr.push(key);
+        continue;
+      }
 
-  // for (const [id, tournament] of Object.entries(sortedTournamentsObject)) {
-  for (const [id, tournament] of Object.entries(tournaments)) {
-    console.log(tournament.date);
-    // console.log(id);
-    // console.log(tournament);
+      date = tournaments[key]["date"].split("-")[0];
+      let dateSplit = date.split("/");
+
+      if (parseInt(dateSplit[0]) >= 1 && parseInt(dateSplit[0]) <= 6) {
+        date += "/" + ((new Date().getFullYear()) + 1)
+      } else {
+        date += "/" + new Date().getFullYear()
+      }
+
+      let splits = date.split("/");
+      let month = splits[0].toString();
+      if (month < 10) {
+        month = "0" + month;
+      }
+      let day = splits[1].toString();
+      if (day < 10) {
+        day = "0" + day;
+      }
+      let year = splits[2].toString();
+      let dateStr = year + "-" + month + "-" + day;
+
+      let currDay = new Date()
+      let eventDate = new Date(Date.parse(dateStr));
+      if (isNaN(eventDate)) {
+        sortedDateArr.push("TBD");
+        sortedKeyArr.push(key);
+        continue;
+      }
+      let Difference_In_Time = eventDate - currDay;
+      let Difference_In_Days = Math.round(Difference_In_Time / (1000 * 3600 * 24));
+
+      if (sortedDateArr.length == 0) {
+        sortedDateArr.push(Difference_In_Days);
+        sortedKeyArr.push(key);
+      } else {
+        let loc = findLoc(Difference_In_Days, sortedDateArr) + 1;
+        sortedDateArr.splice(loc, 0, Difference_In_Days);
+        sortedKeyArr.splice(loc, 0, key);
+      }
+    }
+  }
+
+  sortedKeyArr.forEach((key) => {
     if (access == "Student") {
-      const tournamentElement = createTournamentElementStudent(id, tournament);
+      const tournamentElement = createTournamentElementStudent(key, tournaments[key]);
       tournamentRow.appendChild(tournamentElement);
     }
     if (access == "Coach") {
-      const tournamentElement = createTournamentElement(id, tournament);
+      const tournamentElement = createTournamentElement(key, tournaments[key]);
       tournamentRow.appendChild(tournamentElement);
     }
-
-  }
+  })
 }
 
 function createEventElement(id, event) {
@@ -259,7 +351,7 @@ window.indicateInterest = function (tournamentName) {
   set(interestRef, { name: user, level: accessLevel, events: selectedInfo.topics, partners: partners })
     .then(() => alert('Interest indicated successfully!'))
     .catch((error) => console.error('Error indicating interest:', error));
-  
+
   location.reload();
 }
 
@@ -271,7 +363,7 @@ window.unindicateInterest = function (tournamentName) {
   remove(interestRef)
     .then(() => alert('Interest removed successfully!'))
     .catch((error) => console.error('Error removing interest:', error));
-  
+
 
   location.reload();
 }
