@@ -22,8 +22,10 @@ const db = getDatabase();
 // Get form elements
 const tournamentForm = document.getElementById("tournamentForm");
 const tournamentName = document.getElementById("tournamentName");
+const tournamentCost = document.getElementById("tournamentCost");
 const tournamentLocation = document.getElementById("tournamentLocation");
 const tournamentType = document.getElementById("tournamentType");
+const tournamentJudging = document.getElementById("tournamentJudging");
 const tournamentDescription = document.getElementById("tournamentDescription");
 
 // Function to toggle dropdown
@@ -80,10 +82,12 @@ tournamentForm.addEventListener("submit", async (e) => {
   // Create a tournament object
   const tournamentData = {
     name: tournamentName.value,
+    cost: tournamentCost.value,
     timeData: timeData,
     location: tournamentLocation.value,
     type: tournamentType.value,
     eventsOffered: selectedEvents,
+    tournamentJudging: tournamentJudging.value,
     description: tournamentDescription.value,
   };
 
