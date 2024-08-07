@@ -135,6 +135,7 @@ document.getElementById("massCreateEvent").addEventListener("click", function(){
   document.getElementById("eventForm").style.display = "none";
   window.location.reload()
 })
+
 function fetchEventsAndTournaments(access) {
   const eventsRef = ref(db, 'events');
   const tournamentsRef = ref(db, 'tournaments');
@@ -174,6 +175,7 @@ function findLoc(el, arr, st, en) {
 }
 
 function displayEvents(events, access) {
+  console.log("my access in events:", access);
   const eventRow = document.getElementById(`eventRow${access}`);
   eventRow.innerHTML = '';
 
@@ -312,9 +314,8 @@ function createEventElement(id, event) {
   const div = document.createElement('div');
   div.className = 'event';
 
-  // const dateHtml = getDateString(event.dateData);
   const dateHtml = "<p><strong>Date: </strong>" + event.date + "</p>";
-  // const dateHtml = event.date;
+  const timeForm = event.timeStart + ":" + event.timeEnd;
 
   div.innerHTML = `
     <h3>${event.name}</h3>
@@ -322,11 +323,11 @@ function createEventElement(id, event) {
     <p><strong>Location:</strong> ${event.location || 'Not specified'}</p>
     <p><strong>Food?</strong> ${event.food || 'Not specified'}</p>
     <div class="description-container">
-      <p class="description"><strong>Time:</strong> ${timeForm || 'No description provided'}</p>
-      <button class="show-more-btn">Show More</button>
+    <p class="description"><strong>Time:</strong> ${timeForm || 'No description provided'}</p>
+    <button class="show-more-btn">Show More</button>
     </div>
-  `;
-
+    `;
+    
   const descriptionContainer = div.querySelector(`.description-container`);
   const description = div.querySelector('.description');
   const showMoreBtn = div.querySelector('.show-more-btn');
@@ -349,8 +350,6 @@ function createEventElement(id, event) {
 function createTournamentElementStudent(id, tournament) {
   const div = document.createElement('div');
   div.className = 'tournament';
-  // console.log(tournament.Name)
-  // const dateHtml = getDateString(tournament.dateData);
   const dateHtml = "<p><strong>Date: </strong>" + tournament.date + "</p>";
 
   let interested = false;
