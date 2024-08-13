@@ -31,6 +31,7 @@ const db = getDatabase();
 const dbRef = ref(db)
 const auth = getAuth();
 const html5QrCode = new Html5Qrcode("reader");
+let peopleToAdd = []
 function displayCode(qrObj, item, length){
     setTimeout(function() {
         length++
@@ -79,7 +80,13 @@ onAuthStateChanged(auth, (user) => {
     // User is signed in
     let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
     console.log(accessLevel)
-    if (accessLevel == "Member" || accessLevel == "Captain"){
+    let perms = false
+    get(child(ref(db), `people/${user["uid"]}/attendancePerms`)).then((snapshot) => {
+      if (snapshot.exists()){
+        perms = true
+      }
+    }).then(() => {
+      if ((accessLevel == "Member" || accessLevel == "Captain") && perms == false){
         const content = document.getElementById("memberCaptainMain")
         //get(child(ref(db), `people/${user["uid"]}` + "/generateCode")).then((snapshot) => {
           //if (snapshot.exists()) {
@@ -122,44 +129,133 @@ onAuthStateChanged(auth, (user) => {
         
     }
     else {
-      if (accessLevel == "President"){
-        const sidebar = document.getElementById('qrCode');
-        sidebar.classList.add("sidebar_small")
-        let shown = false
-        let qrCode = new QRCode("QRContent", {
-          text: user["uid"],
-          width: 256,
-          height: 256,
-          colorDark : "#2a2b2e",
-          colorLight : "#f5bc51",
-          correctLevel : QRCode.CorrectLevel.H
-        });      
-        sidebar.style.display = "block"
-        document.getElementById('showQR').onclick = function () {
-          if (shown == false) {
-            sidebar.classList.remove("sidebar_small")
-            document.getElementById("QRContent").style.display = "block"
+      // if (accessLevel == "President" || (accessLevel != "coaches" && perms == true)){
+      //   const sidebar = document.getElementById('qrCode');
+      //   sidebar.classList.add("sidebar_small")
+      //   let shown = false
+      //   let qrCode = new QRCode("QRContent", {
+      //     text: user["uid"],
+      //     width: 256,
+      //     height: 256,
+      //     colorDark : "#2a2b2e",
+      //     colorLight : "#f5bc51",
+      //     correctLevel : QRCode.CorrectLevel.H
+      //   });      
+      //   sidebar.style.display = "block"
+      //   document.getElementById('showQR').onclick = function () {
+      //     if (shown == false) {
+      //       sidebar.classList.remove("sidebar_small")
+      //       document.getElementById("QRContent").style.display = "block"
             
-          }
-          else {
-            sidebar.classList.add("sidebar_small")
-            document.getElementById("QRContent").style.display = "none"
+      //     }
+      //     else {
+      //       sidebar.classList.add("sidebar_small")
+      //       document.getElementById("QRContent").style.display = "none"
 
             
-          }
-          shown = !shown
+      //     }
+      //     shown = !shown
 
-        }
-      }
+      //   }
+      // }
       let uidToNameMap = {}
+      let nameToUIDMap = {}
+      let peopleArr = []
       get(child(dbRef, "people")).then((snapshot) => {
         if (snapshot.exists()){
           for (let key in snapshot.val()){
-            uidToNameMap[key] = snapshot.val()[key]["preferredName"]
+            uidToNameMap[key] = snapshot.val()[key]["username"]
+            nameToUIDMap[snapshot.val()[key]["username"]] = key
           }
           console.log(uidToNameMap)
+          peopleArr = Object.values(uidToNameMap)
+
 
         }
+      })
+      const addPeopleOG = document.getElementById("addPeopleOG")
+      addPeopleOG.addEventListener("click", function(){
+        document.getElementById("peopleForm").style.display = "block"
+        peopleToAdd = []
+      })
+      const searchPeople = document.getElementById("searchPeople")
+      const results = document.getElementById("results")
+      const adding = document.getElementById("adding")
+      searchPeople.addEventListener("input", function(){
+        let searchPower = {}
+
+        results.replaceChildren()
+        if (searchPeople.value.length == 0){
+          return
+        }
+        console.log(searchPeople.value)
+        for (let item of peopleArr){
+          console.log(item.substring(0,searchPeople.value.length))
+          if (searchPeople.value.toLowerCase() == item.substring(0,searchPeople.value.length).toLowerCase()){
+            searchPower[item] = 1
+            console.log("match found: " + item)
+
+          }
+          else if(item.toLowerCase().includes(searchPeople.value.toLowerCase())) {
+            searchPower[item] = 0.66
+          }
+          //can probably add something that checks if the letters typed are present
+        }
+        var items = Object.keys(searchPower).map(function(key) {
+          return [key, searchPower[key]];
+        });
+        
+        // Sort the array based on the second element
+        items.sort(function(first, second) {
+          return second[1] - first[1];
+        });
+        if (items.length == 0){
+          let res = document.createElement("button")
+          res.textContent = "No results found!"
+          res.classList.add("searchResult")
+          res.type = "button"
+          results.appendChild(res)
+        }
+        for (let item of items.slice(0,5)){
+          let res = document.createElement("button")
+          res.textContent = item[0]
+          res.classList.add("searchResult")
+          res.type = "button"
+          res.addEventListener("click", function(){
+            
+            let clicked = res.classList.toggle("clicked")
+            if (clicked == true){
+              peopleToAdd.push(res.textContent)
+              adding.textContent += " " + res.textContent
+            }
+            else {
+              const index = peopleToAdd.indexOf(res.textContent);
+              peopleToAdd.splice(index, 1);
+              let text = adding.textContent
+              
+              adding.textContent = text.replace(res.textContent, "")
+
+
+
+
+
+            }
+          })
+          results.appendChild(res)
+        }
+        // Create a new array with only the first 5 items
+        console.log(items.slice(0, 3));
+      })
+      const submitPeople = document.getElementById("submitPeople")
+      submitPeople.addEventListener("click", function(){
+        const updates = {}
+        for (let item of peopleToAdd){
+          updates[`people/${nameToUIDMap[item]}/attendancePerms`] = "true"
+
+
+        }
+        update(ref(db), updates)
+
       })
       const eventDisplay = document.getElementById("eventDisplay")
       const pastEventDisplay = document.getElementById("pastEventDisplay")
@@ -411,7 +507,14 @@ onAuthStateChanged(auth, (user) => {
         stop.style.display = "none"
       
       })
+      document.getElementById("closePeopleForm").addEventListener("click", function(){
+        document.getElementById("peopleForm").style.display = "none";
+       
+      
+      })
     }
+    })
+    
   } else {
     // User is signed out
     // ...

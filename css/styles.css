@@ -158,7 +158,7 @@ nav a:hover {
   flex-direction: row;
 }
 
-.create-buttons button {
+.create-buttons button, #addPeopleOG {
   background-color: #F5BC51;
   color: #2A2B2E;
   border: none;

@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MSDnet Homepage</title>
 
-  <link rel="stylesheet" type="text/css" href="../../css/styles.css" >
-  <link rel="stylesheet" type="text/css" href="../../css/attendance.css" >
+  <link rel="stylesheet" type="text/css" href="css/styles.css" >
+  <link rel="stylesheet" type="text/css" href="css/attendance.css" >
 
 </head >
 <body>
@@ -28,6 +28,7 @@
 
   </div>
   <div id = "coachMain">
+    <button id = "addPeopleOG">Add People</button>
     <h1>Upcoming Events</h2>
     <div id = "eventDisplay" class = "scrollable-row">
 
@@ -51,6 +52,17 @@
         <button id = "closeEventForm" type="button" class="btn cancel">Close</button>
       </form>
   </div>
+  <div class="form-popup" id="peopleForm">
+    <form id = "attendanceForm" class="form-container">
+      <h1 id = "addPeople">Give Attendance Perms</h1>
+      <input id = "searchPeople" type = "search" placeholder="Search"></input>
+      <div id = "results"></div>
+      <!-- <button id = "openAttendance">Open Attendance</button>     -->
+      <h2 id = "adding">Adding:</h2>
+      <button id = "submitPeople" class = "btn">Add</button>
+      <button id = "closePeopleForm" type="button" class="btn cancel">Close</button>
+    </form>
+</div>
   <div id = "qrCode" class="sidebar">
     <button id = "showQR">QR</button>
     <div id = "QRContent"></div>

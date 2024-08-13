@@ -181,7 +181,7 @@ textarea {
   min-width: 96.5%;
   max-width: 96.5%;
 }
-.event-creation, #tournamentForm, #eventForm {
+.event-creation, #tournamentForm, #eventForm, #peopleForm {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
@@ -191,13 +191,13 @@ textarea {
   color: #F5BC51;
 }
 
-.event-creation h2, #tournamentForm h2, #eventForm h2 {
+.event-creation h2, #tournamentForm h2, #eventForm h2, #peopleForm h2 {
   color: #F5BC51;
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-.event-creation label, #tournamentForm label, #eventForm label {
+.event-creation label, #tournamentForm label, #eventForm label, #peopleForm label {
   display: block;
   margin-top: 10px;
   color: #F5BC51;
@@ -211,7 +211,8 @@ textarea {
 #eventForm input[type="text"],
 #eventForm input[type="date"],
 #eventForm select,
-#eventForm textarea {
+#eventForm textarea,
+#peopleForm input {
 width: 100%;
 padding: 8px;
 margin-top: 5px;
@@ -221,7 +222,7 @@ background-color: #333;
 color: #F5BC51;
 }
 
-.event-creation button, #tournamentForm button, #eventForm button {
+.event-creation button, #tournamentForm button, #eventForm button, #peopleForm button {
 background-color: #F5BC51;
 color: #2A2B2E;
 padding: 10px 15px;
@@ -254,4 +255,31 @@ width: 100%;
 @media screen and (max-width:480px) {
 
   
+}
+h1 {
+  margin-left: 10px;
+}
+button.searchResult {
+  background: black;
+  border: none;
+  margin-left: 10px;
+  border-radius: 8px;
+  height: 5vh;
+  overflow: scroll;
+  /* width: 7vw; */
+}
+#results {
+  margin-top: 10px;
+  height: 20vh;
+  overflow: scroll;
+}
+#peopleForm h1 {
+  margin: 0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#addPeopleOG {
+  position: absolute;
+  right: 0;
+  margin-right: 5px;
 }

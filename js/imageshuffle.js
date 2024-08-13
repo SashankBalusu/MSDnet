@@ -1,24 +1,39 @@
 function showTime(){
-    var date = new Date();
-    var h = date.getHours(); // 0 - 23
-    var m = date.getMinutes(); // 0 - 59
-    var s = date.getSeconds(); // 0 - 59
-    var session = "AM";
+    var countDownDate = new Date("Apr 11, 2025 17:00:00").getTime();
+
+// Update the count down every 1 second
+
+  // Get today's date and time
+  var now = new Date().getTime();
     
-    if(h == 0){
-        h = 12;
-    }
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
     
-    if(h > 12){
-        h = h - 12;
-        session = "PM";
-    }
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    // var h = date.getHours(); // 0 - 23
+    // var m = date.getMinutes(); // 0 - 59
+    // var s = date.getSeconds(); // 0 - 59
+    // var session = "AM";
     
-    h = (h < 10) ? "0" + h : h;
-    m = (m < 10) ? "0" + m : m;
-    s = (s < 10) ? "0" + s : s;
+    // if(h == 0){
+    //     h = 12;
+    // }
     
-    var time = h + ":" + m + ":" + s + " " + session;
+    // if(h > 12){
+    //     h = h - 12;
+    //     session = "PM";
+    // }
+    
+    // h = (h < 10) ? "0" + h : h;
+    // m = (m < 10) ? "0" + m : m;
+    // s = (s < 10) ? "0" + s : s;
+    
+    //var time = h + ":" + m + ":" + s + " " + session;
+    var time = days + "D " + hours + "H " + minutes + "M " + seconds + "S"
     document.getElementById("MyClockDisplay").innerText = time;
     document.getElementById("MyClockDisplay").textContent = time;
     
