@@ -43,8 +43,41 @@ window.onload = function() {
         a.href = "roster.html"
         a.textContent = "Rosters"
         document.getElementById("mainnav").appendChild(a)
+        
 
 
     }
+    else {
+      const sidebar = document.getElementById('qrCode');
+      sidebar.classList.add("sidebar_small")
+      let shown = false
+      let qrCode = new QRCode("QRContent", {
+        text: user["uid"],
+        width: 256,
+        height: 256,
+        colorDark : "#2a2b2e",
+        colorLight : "#f5bc51",
+        correctLevel : QRCode.CorrectLevel.H
+      });      
+      sidebar.style.display = "block"
+      document.getElementById('showQR').onclick = function () {
+        if (shown == false) {
+          sidebar.classList.remove("sidebar_small")
+          document.getElementById("QRContent").style.display = "block"
+          
+        }
+        else {
+          sidebar.classList.add("sidebar_small")
+          document.getElementById("QRContent").style.display = "none"
+
+          
+        }
+        shown = !shown
+
+      }
+    }
+
+    
+    
   });
 }

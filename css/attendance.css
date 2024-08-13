@@ -30,7 +30,6 @@ img {
   display: inline-block;
   min-width: 15vw;
   min-height: 25vh;
-  max-height: 25vh;
   padding: 10px;
   margin-bottom: 10px;
   margin-left: 10px;
@@ -48,7 +47,7 @@ img {
 }
 
 .card > p {
-	font-size: 1.8rem;
+	font-size: 1.8vw;
 }
 .block {
 	position: relative;
@@ -57,22 +56,29 @@ img {
 	height: 250px;
 	background: linear-gradient(0deg, #000, #272727);
 }
-
+/* .moving-border {
+  box-shadow: none;
+}
 .moving-border:before, .moving-border:after {
+  
   border-radius: 8px;
 	content: '';
 	position: absolute;
 	left: -2px;
 	top: -2px;
-	background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00,#ffff00, #ff0000, #fb0094, 
-		#0000ff, #00ff00,#ffff00, #ff0000);
-	background-size: 400%;
+  background: linear-gradient(var(--angle), 
+  #032146,  #C3F2FF, #b00);
+  background-size: 400%;
 	width: calc(100% + 4px);
 	height: calc(100% + 4px);
 	z-index: -1;
-	animation: steam 20s linear infinite;
+	animation: rotate 10s linear infinite;
 }
-
+@keyframes rotate {
+  0%     { --angle: 0deg; }
+  100%   { --angle: 360deg;
+  }
+}
 @keyframes steam {
 	0% {
 		background-position: 0 0;
@@ -87,10 +93,165 @@ img {
 
 .moving-border:after {
 	filter: blur(50px);
+} */
+.moving-border {
+
+  position: relative;
+}
+.moving-border::before,
+.moving-border::after {
+  border-radius: 8px;
+  content: "";
+  position: absolute;
+  inset: -0.2rem;
+  z-index: -1;
+  background: linear-gradient(var(--angle), 
+    #032146,  #C3F2FF, #b00);
+  animation: rotate 10s linear infinite;
+}
+.moving-border::after {
+  filter: blur(10px);
+}
+@keyframes rotate {
+  0%     { --angle: 0deg; }
+  100%   { --angle: 360deg;
+  }
 }
 .scrollable-row {
   height: 40vh;
 }
 .scrollable-row::-webkit-scrollbar {
   overflow-x: hidden;
+}
+.form-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  padding: 10px;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+textarea {
+  min-width: 96.5%;
+  max-width: 96.5%;
+}
+.event-creation, #tournamentForm, #eventForm {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #2A2B2E;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #F5BC51;
+}
+
+.event-creation h2, #tournamentForm h2, #eventForm h2 {
+  color: #F5BC51;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.event-creation label, #tournamentForm label, #eventForm label {
+  display: block;
+  margin-top: 10px;
+  color: #F5BC51;
+}
+.event-creation input:not([type="checkbox"]),
+.event-creation textarea,
+#tournamentForm input[type="text"],
+#tournamentForm input[type="date"],
+#tournamentForm select,
+#tournamentForm textarea,
+#eventForm input[type="text"],
+#eventForm input[type="date"],
+#eventForm select,
+#eventForm textarea {
+width: 100%;
+padding: 8px;
+margin-top: 5px;
+border: 1px solid #F5BC51;
+border-radius: 4px;
+background-color: #333;
+color: #F5BC51;
+}
+
+.event-creation button, #tournamentForm button, #eventForm button {
+background-color: #F5BC51;
+color: #2A2B2E;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+margin-top: 20px;
+font-size: 16px;
+}
+
+.event-creation button:hover, #tournamentForm button:hover {
+background-color: #85FFE2;
+}
+
+#stop {
+  display: none;
+}
+#attendanceLabel {
+  text-align: center;
+}
+#scan, #stop {
+width: 100%;
+}
+#coachMain {
+  display: none;
+}
+#memberCaptainMain {
+  display: none;
+}
+@media screen and (max-width:480px) {
+
+  
 }

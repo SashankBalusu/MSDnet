@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MSDnet Homepage</title>
-  <link rel="stylesheet" type="text/css" href="../../css/styles.css" >
-  <link rel="stylesheet" type="text/css" href="../../css/background.css" >
+  <link rel="stylesheet" type="text/css" href="css/styles.css" >
+  <link rel="stylesheet" type="text/css" href="css/background.css" >
 
 </head >
 <body>
@@ -23,6 +23,10 @@
 
   </header>
   <div id = "main">
+    <div id = "qrCode" class="sidebar">
+      <button id = "showQR">QR</button>
+      <div id = "QRContent"></div>
+    </div>
     <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
     <div id = "greetingWrapper" class = "greet"><p id = "greeting"></p></div>
     <div class="homepage-image">
@@ -32,7 +36,7 @@
       </div>
     </div>
   </div>
-  
+  <script src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
   <script src="js/imageshuffle.js"></script>
   <script src="js/home.js" type="module"></script>

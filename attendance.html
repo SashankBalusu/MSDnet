@@ -15,8 +15,8 @@
     <nav id = "mainnav" class="menu-bar">
       <a href="home.html">Home</a>
       <a href="attendance.html">Attendance</a>
-      <a href="#">Events</a>
-      <a href="#">Schedule</a>
+      <a href="events.html">Events</a>
+      <a href="scheduler.html">Schedule</a>
       <a href="tournaments.html">Tournaments</a>
 
     </nav>
@@ -32,9 +32,33 @@
     <div id = "eventDisplay" class = "scrollable-row">
 
     </div>
+    <h1>Past Events</h2>
+      <div id = "pastEventDisplay" class = "scrollable-row">
+  
+      </div>
+
+    <!-- change these names later, just copy pasteyd from events -->
+    <div class="form-popup" id="eventForm">
+      <form id = "scanForm" class="form-container">
+        <h1 id = "attendanceLabel"></h1>
+        <!-- <button id = "openAttendance">Open Attendance</button>     -->
+        <button type = "button"id = "scan">Start Scanning</button>
+        <button type = "button" id = "stop">Stop Scanning</button>
+
+        <div id="reader">
+        </div>
+        <h2 id = "currScan">Scanning: </h2>
+        <button id = "closeEventForm" type="button" class="btn cancel">Close</button>
+      </form>
+  </div>
+  <div id = "qrCode" class="sidebar">
+    <button id = "showQR">QR</button>
+    <div id = "QRContent"></div>
+  </div>
 
 
   </div>
+  <script src="https://unpkg.com/html5-qrcode"></script>
   <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
 
   <script src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
