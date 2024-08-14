@@ -80,6 +80,15 @@ onAuthStateChanged(auth, (user) => {
     // User is signed in
     let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
     console.log(accessLevel)
+    if (accessLevel == "coaches"){
+      let a = document.createElement("a")
+      a.href = "roster.html"
+      a.textContent = "Rosters"
+      document.getElementById("mainnav").appendChild(a)
+      
+
+
+  }
     let perms = false
     get(child(ref(db), `people/${user["uid"]}/attendancePerms`)).then((snapshot) => {
       if (snapshot.exists()){

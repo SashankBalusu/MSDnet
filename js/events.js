@@ -25,6 +25,15 @@ document.addEventListener('DOMContentLoaded', () => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
+      if (accessLevel == "coaches"){
+        let a = document.createElement("a")
+        a.href = "roster.html"
+        a.textContent = "Rosters"
+        document.getElementById("mainnav").appendChild(a)
+        
+
+
+    }
       //if user is member, captain, or president
       if (accessLevel == "Member" || accessLevel == "Captain" || accessLevel == "President") {
         document.getElementById("coachesView").style.display = "none"
