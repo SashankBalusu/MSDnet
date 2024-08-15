@@ -400,7 +400,7 @@ onAuthStateChanged(auth, (user) => {
           html5QrCode.start(
           cameraId, 
           {
-              fps: 0.7,    // Optional, frame per seconds for qr code scanning
+              fps: 5,    // Optional, frame per seconds for qr code scanning
           },
           (decodedText, decodedResult) => {
               if (uidToNameMap[decodedText] != undefined){
