@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel = "stylesheet" href = "css/styles.css">
+</head>
+<body>
+    <h1 style = "color: #F5BC51; text-align: center;">Signing you out now...</h1>
+</body>
+<script type = "module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    const firebaseConfig = {
+  apiKey: "AIzaSyBY3NSt8IsWNcEntJiO8QM_Z26Nv4WdrWM",
+  authDomain: "msdnet-7307d.firebaseapp.com",
+  projectId: "msdnet-7307d",
+  storageBucket: "msdnet-7307d.appspot.com",
+  messagingSenderId: "55003346420",
+  appId: "1:55003346420:web:7f3693c50fe0ca598df5a1",
+  measurementId: "G-GGHX0BXHLD",
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+signOut(auth).then(() => {
+    
+    window.location = "index.html"
+  // Sign-out successful.
+}).catch((error) => {
+  // An error happened.
+});
+</script>
+</html>

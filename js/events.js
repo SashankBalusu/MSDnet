@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } else {
       console.log("User not logged in");
+      window.location = "index.html"
     }
   });
 

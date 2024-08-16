@@ -35,7 +35,8 @@ let authUser = auth.currentUser;
 window.onload = function() {
 
   auth.onAuthStateChanged(function(user) {
-    console.log(user);
+    if (user){
+      console.log(user);
     let accessLevel = CryptoJS.AES.decrypt(localStorage.getItem("accessLevel"), "Ngodeinweb").toString(CryptoJS.enc.Utf8);
     console.log(accessLevel)
     if (accessLevel == "coaches"){
@@ -76,6 +77,12 @@ window.onload = function() {
 
       }
     }
+
+    }
+    else {
+      window.location = "index.html"
+    }
+    
 
     
     
