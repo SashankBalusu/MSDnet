@@ -93,7 +93,13 @@ login.addEventListener("click", function(){
   
                   console.log("success!")
                   console.log(access)
-                  window.location = 'onboarding.html';
+                  if (access != "coaches"){
+                    window.location = 'onboarding.html';
+
+                  }
+                  else {
+                    window.location = "home.html"
+                  }
                 });
               }
               else {
