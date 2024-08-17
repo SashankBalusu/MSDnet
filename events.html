@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events and Tournaments</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/events.css">
 
 </head>
+
 <body>
     <header>
         <h1><a>MSDnet</a></h1>
-        <nav id = "mainnav" class="menu-bar">
-          <a href="home.html">Home</a>
-          <a href="attendance.html">Attendance</a>
-          <a href="events.html">Events</a>
-          <a href="scheduler.html">Schedule</a>
-    
+        <nav id="mainnav" class="menu-bar">
+            <a href="home.html">Home</a>
+            <a href="attendance.html">Attendance</a>
+            <a href="events.html">Events</a>
+            <a href="scheduler.html">Schedule</a>
+
         </nav>
-    
-    
-      </header>
+
+
+    </header>
 
 
 
-    <div id = "coachesView">
+    <div id="coachesView">
         <div class="events-container">
             <div class="events-header">
                 <div class="events-titles">
@@ -40,41 +43,147 @@
                     <button id="createEventBtn">Create New Event</button>
                 </div>
             </div>
-    
+
             <h3>Tournaments</h3>
             <div id="tournamentRowCoach" class="scrollable-row"></div>
-    
+
             <h3>Events</h3>
             <div id="eventRowCoach" class="scrollable-row"></div>
-            
+
         </div>
         <div class="form-popup" id="tournamentForm">
             <form class="form-container">
-              <h1>Tournaments</h1>
-          
-              <label><b>Tournament content from sheets</b></label>
-              <textarea id = "massTournamentArea" placeholder="Copy paste here" name="ctnt"></textarea>
-          
-              <button id = "massCreateTournament" class="btn">Submit</button>
-              <button id = "closeTournamentForm" type="button" class="btn cancel">Close</button>
+                <h1>Tournaments</h1>
+
+                <label><b>Tournament content from sheets</b></label>
+                <textarea id="massTournamentArea" placeholder="Copy paste here" name="ctnt"></textarea>
+
+                <button id="massCreateTournament" class="btn">Submit</button>
+                <button id="closeTournamentForm" type="button" class="btn cancel">Close</button>
             </form>
         </div>
         <div class="form-popup" id="eventForm">
             <form class="form-container">
-              <h1>Events</h1>
-          
-              <label><b>Event content from sheets</b></label>
-              <textarea id = "massEventArea" placeholder="Copy paste here" name="ctnt"></textarea>
-          
-              <button id = "massCreateEvent" class="btn">Submit</button>
-              <button id = "closeEventForm" type="button" class="btn cancel">Close</button>
+                <h1>Events</h1>
+
+                <label><b>Event content from sheets</b></label>
+                <textarea id="massEventArea" placeholder="Copy paste here" name="ctnt"></textarea>
+
+                <button id="massCreateEvent" class="btn">Submit</button>
+                <button id="closeEventForm" type="button" class="btn cancel">Close</button>
+            </form>
+        </div>
+        <div class="form-popup" id="newTournamentForm">
+            <form class="form-container">
+                <h1>Create New Tournament</h1>
+
+                <label for="tournamentName">Tournament Name:</label>
+                <input type="text" id="tournamentName" required>
+
+                <label for="tournamentCost">Tournament Cost:</label>
+                <input type="text" id="tournamentCost" placeholder="$0" required>
+
+                <label for="tournamentLocation">Tournament Location:</label>
+                <input type="text" id="tournamentLocation" required>
+
+                <div class="dateTimeSelectors" id="dateTimeSelectors">
+                    <div id="dateTimeInputContainer-0">
+                        <label for="eventDate-0">Event Date:</label>
+                        <input type="date" id="eventDate-0" required>
+
+                        <label for="eventTimeStart-0">Event Time Start:</label>
+                        <input type="time" id="eventTimeStart-0" required>
+
+                        <label for="eventTimeEnd-0">Event Time:</label>
+                        <input type="time" id="eventTimeEnd-0" required>
+                    </div>
+                </div>
+                <button id="addDate" onclick="addDateSelector()">+</button>
+
+                <label for="tournamentType">Tournament Type:</label>
+                <select name="tournamentType" id="tournamentType">
+                    <option hidden selected>Select</option>
+                    <option value="League">League</option>
+                    <option value="Invitational">Invitational</option>
+                </select>
+
+                <div class="dropdown">
+                    <h4>Events Offered:</h4>
+                    <button type="button" id="dropdownButton">Select Options</button>
+                    <div id="eventsDropdown" class="dropdown-content">
+                        <label><input type="checkbox" value="All CA Events"> All CA Events</label>
+                        <label><input type="checkbox" value="All NSDA Events"> All NSDA Events</label>
+                        <label><input type="checkbox" value="Policy"> Policy</label>
+                        <label><input type="checkbox" value="LD"> LD</label>
+                        <label><input type="checkbox" value="PF"> PF</label>
+                        <label><input type="checkbox" value="Parli"> Parli</label>
+                        <label><input type="checkbox" value="Congress"> Congress</label>
+                        <label><input type="checkbox" value="IX/NX"> IX/NX</label>
+                        <label><input type="checkbox" value="Impromptu"> Impromptu</label>
+                        <label><input type="checkbox" value="HI"> HI</label>
+                        <label><input type="checkbox" value="DI"> DI</label>
+                        <label><input type="checkbox" value="Duo"> Duo</label>
+                        <label><input type="checkbox" value="POI"> POI</label>
+                        <label><input type="checkbox" value="OPP"> OPP</label>
+                        <label><input type="checkbox" value="OA"> OA</label>
+                        <label><input type="checkbox" value="OO"> OO</label>
+                        <label><input type="checkbox" value="Info"> Info</label>
+                    </div>
+                </div>
+
+                <label for="tournamentJudging">What days for judges?</label>
+                <input type="text" id="tournamentJudging" placeholder="friday, saturday" required>
+
+                <label for="tournamentDescription">Tournament Description:</label>
+                <textarea id="tournamentDescription"></textarea>
+
+                <button id="createNewTournament" class="btn">Submit</button>
+                <button id="closeNewTournamentForm" type="button" class="btn cancel">Close</button>
+            </form>
+        </div>
+        <div class="form-popup" id="newEventForm">
+            <form class="form-container">
+                <h1>Events</h1>
+
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" required>
+
+                <div class="dateTimeSelectors" id="dateTimeSelectors">
+                    <div id="dateTimeInputContainer-0">
+                        <label for="eventDate-0">Event Date:</label>
+                        <input type="date" id="eventDate-0" required>
+
+                        <label for="eventTimeStart-0">Event Time Start:</label>
+                        <input type="time" id="eventTimeStart-0" required>
+
+                        <label for="eventTimeEnd-0">Event Time:</label>
+                        <input type="time" id="eventTimeEnd-0" required>
+                    </div>
+                </div>
+                <button id="addDate" onclick="addDateSelector()">+</button>
+
+                <label for="eventLocation">Event Location:</label>
+                <input type="text" id="eventLocation" required>
+
+                <label for="eventType">Event Type:</label>
+                <select name="eventType" id="eventType">
+                    <option hidden selected>Select</option>
+                    <option value="Blitz">Blitz</option>
+                    <option value="Cultural">Cultural</option>
+                </select>
+
+                <label for="eventDescription">Event Description:</label>
+                <textarea id="eventDescription"></textarea>
+
+                <button id="createNewEvent" class="btn">Submit</button>
+                <button id="closeNewEventForm" type="button" class="btn cancel">Close</button>
             </form>
         </div>
     </div>
 
 
 
-    <div id = "studentsView">
+    <div id="studentsView">
         <div class="events-header">
             <div class="events-titles">
                 <h1>Upcoming Events and Tournaments</h2>
@@ -86,8 +195,12 @@
         <h3>Events</h3>
         <div id="eventRowStudent" class="scrollable-row"></div>
     </div>
-    
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
     <script type="module" src="js/events.js"></script>
+    <script src="../../js/event_date_handling.js"></script>
+    <script src="../../js/tournament_form_submit.js" type="module"></script>
+    <script src="../../js/event_form_submit.js" type="module"></script>
 </body>
+
 </html>

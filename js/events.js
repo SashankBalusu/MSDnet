@@ -52,13 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Add event listeners for create buttons
-  document.getElementById('createEventBtn').addEventListener('click', () => {
-    window.location.href = 'html/eventcreation.html';
-  });
+  // document.getElementById('createEventBtn').addEventListener('click', () => {
+  //   window.location.href = 'html/eventcreation.html';
+  // });
 
-  document.getElementById('createTournamentBtn').addEventListener('click', () => {
-    window.location.href = 'html/tournamentcreation.html';
-  });
+  // document.getElementById('createTournamentBtn').addEventListener('click', () => {
+  //   window.location.href = 'html/tournamentcreation.html';
+  // });
 });
 document.getElementById("createAllTournaments").addEventListener("click", function(){
   document.getElementById("tournamentForm").style.display = "block";
@@ -74,6 +74,22 @@ document.getElementById("createAllEvents").addEventListener("click", function(){
 })
 document.getElementById("closeEventForm").addEventListener("click", function(){
   document.getElementById("eventForm").style.display = "none";
+
+})
+document.getElementById("createTournamentBtn").addEventListener("click", function(){
+  document.getElementById("newTournamentForm").style.display = "block";
+
+})
+document.getElementById("closeNewTournamentForm").addEventListener("click", function(){
+  document.getElementById("newTournamentForm").style.display = "none";
+
+})
+document.getElementById("createEventBtn").addEventListener("click", function(){
+  document.getElementById("newEventForm").style.display = "block";
+
+})
+document.getElementById("closeNewEventForm").addEventListener("click", function(){
+  document.getElementById("newEventForm").style.display = "none";
 
 })
 document.getElementById("massCreateTournament").addEventListener("click", function(){
@@ -143,6 +159,35 @@ document.getElementById("massCreateEvent").addEventListener("click", function(){
   }
   document.getElementById("eventForm").style.display = "none";
   window.location.reload()
+})
+
+document.getElementById("createNewTournament").addEventListener("click", function(){
+  const textarea = document.getElementById("newTournamentArea")
+  console.log(textarea.value.split("\n"))
+  let step1 = textarea.value.replace(/[.#$]/g, '');
+  let textFiltered = step1.split("\n").filter(a => !a.toLowerCase().includes("semester"));
+  console.log(textFiltered)
+  for (let item of textFiltered){
+    let itemSplit = item.split("\t")
+    console.log(item.split("\t"))
+    if (itemSplit[2] == ""){
+      alert("tournament name cant be blank!!")
+      return
+    }
+    if (itemSplit[2].includes("/")){
+      itemSplit[2] = itemSplit[2].replaceAll("/", "-")
+    }
+    set(ref(db, 'tournaments/' + itemSplit[2]), {
+            name: itemSplit[2],
+            description: itemSplit[3],
+            events: itemSplit[4],
+            date: itemSplit[0]
+      });
+    
+  }
+  document.getElementById("newTournamentForm").style.display = "none";
+  window.location.reload()
+  
 })
 
 function fetchEventsAndTournaments(access) {

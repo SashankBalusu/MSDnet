@@ -53,10 +53,12 @@
     opacity: 1;
   }
   textarea {
-    min-width: 96.5%;
-    max-width: 96.5%;
+    /* min-width: 96.5%;
+    max-width: 96.5%; */
+    min-width: 50%;
+    max-width: 50%;
   }
-  .event-creation, #tournamentForm, #eventForm {
+  .event-creation, #tournamentForm, #eventForm, #newTournamentForm, #newEventForm {
     max-width: 600px;
     margin: 20px auto;
     padding: 20px;
@@ -66,23 +68,28 @@
     color: #F5BC51;
   }
   
-  .event-creation h2, #tournamentForm h2, #eventForm h2 {
+  .event-creation h2, #tournamentForm h2, #eventForm h2, #newTournamentForm h2, #newEventForm h2 {
     color: #F5BC51;
     font-size: 24px;
     margin-bottom: 20px;
   }
   
-  .event-creation label, #tournamentForm label, #eventForm label {
+  .event-creation label, #tournamentForm label, #eventForm label, #newTournamentForm label, #newEventForm label {
     display: block;
     margin-top: 10px;
     color: #F5BC51;
   }
-  .event-creation input:not([type="checkbox"]),
+
+.event-creation input:not([type="checkbox"]),
 .event-creation textarea,
 #tournamentForm input[type="text"],
 #tournamentForm input[type="date"],
 #tournamentForm select,
 #tournamentForm textarea,
+#newEventForm input[type="text"],
+#newEventForm input[type="date"],
+#newEventForm select,
+#newEventForm textarea,
 #eventForm input[type="text"],
 #eventForm input[type="date"],
 #eventForm select,
@@ -96,7 +103,15 @@
   color: #F5BC51;
 }
 
-.event-creation button, #tournamentForm button, #eventForm button {
+#newTournamentForm input[type="text"],
+#newTournamentForm input[type="date"],
+#newTournamentForm select,
+#newTournamentForm textarea,
+#newEventForm input[type="text"],
+#newEventForm input[type="date"],
+#newEventForm select,
+#newEventForm textarea,
+.event-creation button, #tournamentForm button, #eventForm button, #newTournamentForm button, #newEventForm button {
   background-color: #F5BC51;
   color: #2A2B2E;
   padding: 10px 15px;
@@ -107,6 +122,22 @@
   font-size: 16px;
 }
 
-.event-creation button:hover, #tournamentForm button:hover {
-  background-color: #85FFE2;
+#newTournamentForm {
+  max-height: 80vh; /* Set the maximum height to 80% of the viewport height */
+  width: 500px; /* Set a fixed width (adjust as necessary) */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Hide horizontal scrolling if content overflows */
+  padding: 20px;
 }
+
+#newEventForm {
+  max-height: 80vh; /* Set the maximum height to 80% of the viewport height */
+  width: 500px; /* Set a fixed width (adjust as necessary) */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Hide horizontal scrolling if content overflows */
+  padding: 20px;
+}
+
+/* .event-creation button:hover, #tournamentForm button:hover, # {
+  background-color: #85FFE2;
+} */
