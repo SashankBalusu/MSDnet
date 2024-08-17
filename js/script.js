@@ -4,7 +4,6 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   deleteUser,
-  onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import {
   child,
@@ -28,8 +27,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 // const analytics = getAnalytics(app);
 const db = getDatabase();
-const auth = getAuth(app);
-
 // Menu bar
 // document.querySelector('.menu-icon').addEventListener('click', function() {
 //     var menuContainer = document.querySelector('.menu-container');
@@ -37,18 +34,8 @@ const auth = getAuth(app);
 //     var menuIcon = document.querySelector('.menu-icon');
 //     menuIcon.classList.toggle('show');
 // });
-document.addEventListener('DOMContentLoaded', () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user && localStorage.getItem("signingIn") != true){
-      
-      window.location = 'home.html';
 
-      
-    }
-    else {
-      localStorage.setItem("signingIn", true)
-      //user not yet signed in
-      const provider = new GoogleAuthProvider();
+const provider = new GoogleAuthProvider();
 const auth = getAuth();
 const login = document.getElementById("login")
 console.log(login)
@@ -63,7 +50,6 @@ login.addEventListener("click", function(){
       console.log(user)
       let authUser = auth.currentUser;
       const dbRef = ref(getDatabase());
-      localStorage.removeItem("signingIn")
 
       get(child(dbRef, `whitelist`)).then((snapshot) => {
         if (snapshot.exists()) {
@@ -155,8 +141,4 @@ login.addEventListener("click", function(){
       const credential = GoogleAuthProvider.credentialFromError(error);
       // ...
   });
-})
-    }
-  })
-
 })

@@ -525,7 +525,6 @@ onAuthStateChanged(auth, (user) => {
     })
     
   } else {
-    window.location = "index.html"
     // User is signed out
     // ...
   }

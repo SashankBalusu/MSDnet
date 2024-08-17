@@ -36,8 +36,7 @@ let authUser = auth.currentUser;
 window.onload = function() {
 
   auth.onAuthStateChanged(function(user) {
-    if (user){
-      console.log(user);
+    console.log(user);
 
     const textarea = document.getElementById("rosterInfo")
     const submit = document.getElementById("submit")
@@ -145,12 +144,6 @@ window.onload = function() {
       console.log(peopleList)
       
     })
-
-    }
-    else {
-      window.location = "index.html"
-    }
-    
 
   });
 };
